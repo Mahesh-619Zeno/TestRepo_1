@@ -1,3 +1,0 @@
-+++
-title = "An orphan page"
-+++
