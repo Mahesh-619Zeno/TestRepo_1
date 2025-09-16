@@ -1,106 +1,93 @@
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class BankingApp {
 
-    // Global (instance) variables
-    private String accountHolderName;
-    private double accountBalance;
+    // Global Variables fetched from the configuration file
+    private static String apiUrl;
+    private static String apiKey;
+    private static double maxWithdrawalLimit;
+    private static double transactionFee;
+    private static String databaseUrl;
+    private static String dbUser;
+    private static String dbPassword;
 
-    // Static (class-level) variable - shared among all instances of the class
-    private static int totalAccounts = 0;
-
-    // Constructor to initialize the account details
-    public BankingApp(String accountHolderName, double initialDeposit) {
-        this.accountHolderName = accountHolderName;
-        this.accountBalance = initialDeposit;
-        totalAccounts++;  // Increment total account count whenever a new account is created
-    }
-
-    // Instance method to deposit money
-    public void deposit(double amount) {
-        if (amount > 0) {
-            accountBalance += amount;
-            System.out.println("Deposited: $" + amount);
-        } else {
-            System.out.println("Invalid deposit amount.");
+    // Static block to load configuration from the file
+    static {
+        try {
+            loadConfiguration();
+        } catch (IOException e) {
+            System.err.println("Error loading configuration: " + e.getMessage());
+            System.exit(1); // Exit if configuration cannot be loaded
         }
     }
 
-    // Instance method to withdraw money
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= accountBalance) {
-            accountBalance -= amount;
-            System.out.println("Withdrew: $" + amount);
-        } else {
-            System.out.println("Insufficient funds or invalid withdrawal amount.");
+    // Method to load configuration from a properties file
+    private static void loadConfiguration() throws IOException {
+        Properties properties = new Properties();
+        FileInputStream fis = new FileInputStream("bank_config.properties");
+        properties.load(fis);
+
+        // Assign the properties to global variables
+        apiUrl = properties.getProperty("api_url");
+        apiKey = properties.getProperty("api_key");
+        maxWithdrawalLimit = Double.parseDouble(properties.getProperty("max_withdrawal_limit"));
+        transactionFee = Double.parseDouble(properties.getProperty("transaction_fee"));
+        databaseUrl = properties.getProperty("database_url");
+        dbUser = properties.getProperty("database_user");
+        dbPassword = properties.getProperty("database_password");
+
+        fis.close(); // Close the file input stream
+    }
+
+    // A method to simulate withdrawal processing
+    public static void processWithdrawal(double amount) {
+        if (amount > maxWithdrawalLimit) {
+            System.out.println("Error: Withdrawal amount exceeds the maximum limit of " + maxWithdrawalLimit);
+            return;
         }
+
+        // Calculate the transaction fee
+        double fee = (amount * transactionFee) / 100;
+        double totalAmount = amount + fee;
+
+        System.out.println("Processing withdrawal...");
+        System.out.println("Amount: " + amount);
+        System.out.println("Transaction Fee: " + fee);
+        System.out.println("Total Amount to be Withdrawn: " + totalAmount);
     }
 
-    // Instance method to check the balance
-    public void checkBalance() {
-        System.out.println(accountHolderName + "'s Account Balance: $" + accountBalance);
+    // A method to simulate fetching account details using the bank API
+    public static void fetchAccountDetails(String accountNumber) {
+        System.out.println("Fetching account details from API...");
+        System.out.println("API URL: " + apiUrl);
+        System.out.println("API Key: " + apiKey);
+        // Simulate making an API call to fetch account details
+        // In a real app, you'd use an HTTP client like HttpURLConnection or HttpClient here
+        System.out.println("Account details for account: " + accountNumber);
     }
 
-    // Static method to get the total number of accounts
-    public static void totalAccounts() {
-        System.out.println("Total Accounts in the Bank: " + totalAccounts);
+    // Method to simulate connecting to a database (e.g., to store transaction data)
+    public static void connectToDatabase() {
+        System.out.println("Connecting to the database...");
+        System.out.println("Database URL: " + databaseUrl);
+        System.out.println("Database User: " + dbUser);
+        // Simulate database connection logic (this would typically use JDBC)
+        System.out.println("Connected to the database successfully.");
     }
 
-    // Main method to drive the program
+    // Main method
     public static void main(String[] args) {
-        // Scanner for user input
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("Starting the Banking Application...");
 
-        // Prompt the user for account creation
-        System.out.print("Enter Account Holder's Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Initial Deposit: ");
-        double depositAmount = scanner.nextDouble();
+        // Simulate processing a withdrawal
+        processWithdrawal(1000);
 
-        // Create a new bank account
-        BankingApp account = new BankingApp(name, depositAmount);
+        // Simulate fetching account details
+        fetchAccountDetails("123456789");
 
-        // Show initial balance
-        account.checkBalance();
-
-        // Banking operations menu
-        boolean running = true;
-        while (running) {
-            System.out.println("\n--- Banking Menu ---");
-            System.out.println("1. Deposit");
-            System.out.println("2. Withdraw");
-            System.out.println("3. Check Balance");
-            System.out.println("4. View Total Accounts");
-            System.out.println("5. Exit");
-            System.out.print("Select an option: ");
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter deposit amount: ");
-                    double deposit = scanner.nextDouble();
-                    account.deposit(deposit);
-                    break;
-                case 2:
-                    System.out.print("Enter withdrawal amount: ");
-                    double withdrawal = scanner.nextDouble();
-                    account.withdraw(withdrawal);
-                    break;
-                case 3:
-                    account.checkBalance();
-                    break;
-                case 4:
-                    BankingApp.totalAccounts();  // Call static method to get total accounts
-                    break;
-                case 5:
-                    running = false;
-                    System.out.println("Thank you for using the Banking App!");
-                    break;
-                default:
-                    System.out.println("Invalid option, please try again.");
-            }
-        }
-
-        scanner.close();
+        // Simulate connecting to the database
+        connectToDatabase();
     }
 }
