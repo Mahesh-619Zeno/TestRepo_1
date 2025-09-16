@@ -17,10 +17,10 @@ public class Library {
     }
 
     public void borrowBook(int id) {
-        for (Book b : books) {
-            if (b.getId() == id && b.isAvailable()) {
-                b.borrow();
-                System.out.println("Borrowed: " + b.getTitle());
+        for (Book book : books) {
+            if (book.getId() == id && book.isAvailable()) {
+                book.borrow();
+                System.out.println("Borrowed: " + book.getTitle());
                 return;
             }
         }
@@ -28,10 +28,10 @@ public class Library {
     }
 
     public void returnBook(int id) {
-        for (Book b : books) {
-            if (b.getId() == id && !b.isAvailable()) {
-                b.returnBook();
-                System.out.println("Returned: " + b.getTitle());
+        for (Book book : books) {
+            if (book.getId() == id && !book.isAvailable()) {
+                book.returnBook();
+                System.out.println("Returned: " + book.getTitle());
                 return;
             }
         }
