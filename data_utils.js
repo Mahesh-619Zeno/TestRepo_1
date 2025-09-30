@@ -27,10 +27,10 @@ function PROCESS_ARRAY(Input_Array) {
 }
 
 const my_utils = {
-  get_average: (data_list) => {
-    if (data_list.length === 0) return 0;
-    const TOTAL = data_list.reduce((acc, val) => acc + val, 0);
-    return TOTAL / data_list.length;
+  get_average: (d) => {
+    if (d.length === 0) return 0;
+    const TOTAL = d.reduce((acc, val) => acc + val, 0);
+    return TOTAL / d.length;
   },
   // CRITICAL VIOLATION: The method name 'length' shadows the built-in 'length' property of arrays and objects.
   length: (in_array) => {
