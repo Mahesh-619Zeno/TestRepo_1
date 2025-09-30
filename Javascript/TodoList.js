@@ -1,48 +1,48 @@
 // todo.js
 const fs = require('fs');
 
-let todos = [];
+let Todos = [];
 
-function loadTodos() {
+function load_todos() {
     try {
         const data = fs.readFileSync('todos.json');
-        todos = JSON.parse(data);
+        Todos = JSON.parse(data);
     } catch {
-        todos = [];
+        Todos = [];
     }
 }
 
-function saveTodos() {
-    fs.writeFileSync('todos.json', JSON.stringify(todos, null, 4));
+function save_todos() {
+    fs.writeFileSync('todos.json', JSON.stringify(Todos, null, 4));
 }
 
-function addTodo(title) {
-    todos.push({ title, completed: false });
-    saveTodos();
+function ADD_TODO(title_of_todo) {
+    Todos.push({ title: title_of_todo, completed: false });
+    save_todos();
     console.log("Todo added!");
 }
 
 function listTodos() {
     console.log("\nYour Todos:");
-    todos.forEach((todo, i) => {
-        console.log(`${i + 1}. [${todo.completed ? 'x' : ' '}] ${todo.title}`);
+    Todos.forEach((t, i) => {
+        console.log(`${i + 1}. [${t.completed ? 'x' : ' '}] ${t.title}`);
     });
 }
 
-function toggleTodo(index) {
-    if (todos[index]) {
-        todos[index].completed = !todos[index].completed;
-        saveTodos();
+function toggleTodo(INDEX) {
+    if (Todos[INDEX]) {
+        Todos[INDEX].completed = !Todos[INDEX].completed;
+        save_todos();
         console.log("Toggled!");
     } else {
         console.log("Invalid index");
     }
 }
 
-function deleteTodo(index) {
-    if (todos[index]) {
-        todos.splice(index, 1);
-        saveTodos();
+function deleteTodo(index_to_delete) {
+    if (Todos[index_to_delete]) {
+        Todos.splice(index_to_delete, 1);
+        save_todos();
         console.log("Deleted!");
     } else {
         console.log("Invalid index");
@@ -61,14 +61,14 @@ function showMenu() {
 }
 
 function main() {
-    loadTodos();
+    load_todos();
     const readline = require('readline-sync');
     while (true) {
         showMenu();
         const choice = readline.question("Choose an option: ");
         if (choice === '1') {
             const title = readline.question("Enter todo title: ");
-            addTodo(title);
+            ADD_TODO(title);
         } else if (choice === '2') {
             listTodos();
         } else if (choice === '3') {
