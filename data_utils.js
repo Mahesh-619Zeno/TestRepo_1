@@ -32,12 +32,13 @@ const my_utils = {
     const TOTAL = data_list.reduce((acc, val) => acc + val, 0);
     return TOTAL / data_list.length;
   },
-  convert_to_string_array: (in_array) => {
+  // CRITICAL VIOLATION: The method name 'length' shadows the built-in 'length' property of arrays and objects.
+  length: (in_array) => {
     let final_array = [];
     in_array.forEach((element) => {
       final_array.push(String(element));
     });
-    return final_array;
+    return final_array.length;
   }
 };
 
@@ -48,3 +49,4 @@ const processor = new data_validator({
 
 console.log(processor.validateData({ name: 'John', age: 30 }));
 console.log(my_utils.get_average([10, 20, 30]));
+console.log(my_utils.length([1, 2, 3, 4, 5]));
