@@ -1,13 +1,46 @@
-import config from './config';
+// app.js
 
-function fetchData() {
+const config = require('./config');
+
+// Simulate a fetch function
+function fetchData(endpoint) {
+  const url = `${config.API_URL}${endpoint}`;
+
   if (config.DEBUG_MODE) {
-    console.log(`Debug: Fetching data from ${config.API_URL} with timeout ${config.TIMEOUT}ms`);
+    console.log(`[DEBUG] Preparing to fetch: ${url}`);
+    console.log(`[DEBUG] Timeout set to: ${config.TIMEOUT}ms`);
   }
 
-  // Simulate API call
-  return `Simulated request to ${config.API_URL} with timeout ${config.TIMEOUT}`;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate success/failure
+      const success = Math.random() > 0.2; // 80% success rate
+
+      if (success) {
+        const data = { message: "Data fetched successfully", url };
+        if (config.DEBUG_MODE) {
+          console.log(`[DEBUG] Fetch success:`, data);
+        }
+        resolve(data);
+      } else {
+        const error = new Error("Failed to fetch data");
+        if (config.DEBUG_MODE) {
+          console.error(`[DEBUG] Fetch error:`, error.message);
+        }
+        reject(error);
+      }
+    }, config.TIMEOUT);
+  });
 }
 
-const result = fetchData();
-console.log(result);
+// Main function to execute logic
+async function main() {
+  try {
+    const data = await fetchData("/users");
+    console.log("✅ Response:", data);
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+  }
+}
+
+main();
