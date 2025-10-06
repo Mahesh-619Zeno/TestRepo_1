@@ -8,11 +8,11 @@ import java.io.FileWriter;
 
 public class LoginSystem {
     public static void main(String args[]) throws Exception {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your username:");
-        String u = sc.nextLine();
+        String u = scanner.nextLine();
         System.out.println("Enter your password:");
-        String p = sc.nextLine();
+        String p = scanner.nextLine();
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root123");
         Statement st = c.createStatement();
         String sql = "SELECT * FROM users WHERE username='" + u + "' AND password='" + p + "'";
