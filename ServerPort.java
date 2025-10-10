@@ -9,7 +9,7 @@ public class ServerPort {
         try {
             return Integer.parseInt(portStr);
         } catch (NumberFormatException e) {
-            System.err.println("Warning: Invalid port number format in 'SERVER_PORT'. Using default port 8080.");
+            logger.warn("Warning: Invalid port number format in 'SERVER_PORT'. Using default port 8080.");
             return 8080;
         }
     }

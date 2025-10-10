@@ -8,6 +8,6 @@ public class EnvironmentLister {
         for (Map.Entry<String, String> entry : env.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
-        System.out.println("---------------------------------");
+        System.out.println(entry.getKey() + " = " + "********");
     }
 }
