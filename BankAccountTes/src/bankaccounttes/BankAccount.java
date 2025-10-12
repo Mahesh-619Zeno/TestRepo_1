@@ -37,8 +37,8 @@ public class BankAccount {
         this.AccountHolder = AccountHolder;
     }
 
-    public void setAccountNumber(int AccountNumber) {
-        this.AccountNumber = AccountNumber;
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public void setBalance(double balance) {
