@@ -39,9 +39,9 @@ public class BankAccountTes {
               System.out.println("Enter your balance");
                 double balance= input.nextDouble();
 
-             BankAccount b = new BankAccount (name, accNo,balance);
-                     list.add(b);
-                     
+             BankAccount bankAccount = new BankAccount (name, accNo,balance);
+                     list.add(bankAccount);
+
                   System.out.println("Account has been added"); 
                 choice = menu();
 
