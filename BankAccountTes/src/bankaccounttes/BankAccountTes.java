@@ -123,13 +123,13 @@ public class BankAccountTes {
                         }
                        // ArrayList<BankAccount> list= new ArrayList<>();
                        public static BankAccount search(ArrayList<BankAccount> list, int accNo){
-                       BankAccount ba= null;
-                       for(BankAccount bb: list){
-                       if (bb.getAccountNumber() == accNo) {
-                           ba=bb;
+                       BankAccount foundAccount= null;
+                       for(BankAccount account: list){
+                       if (account.getAccountNumber() == accNo) {
+                           foundAccount=account;
                        }
                       }
-                          return ba;
+                          return foundAccount;
                        }
                        
 
