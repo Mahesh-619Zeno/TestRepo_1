@@ -51,10 +51,10 @@ public class BankAccountTes {
                    System.out.println(" Enter account number that want to search for)");
                     accNo= input.nextInt();
 
-                        BankAccount bac= search(list,accNo);
+                        BankAccount foundAccount= search(list,accNo);
 
-                            if(bac!=null) {
-                                System.out.println(bac);
+                            if(foundAccount!=null) {
+                                System.out.println(foundAccount);
                                     } else {
                                 System.out.println("Your number does not exist");
                                         }           
@@ -73,11 +73,11 @@ public class BankAccountTes {
                                     System.out.println("Enter account number that want to remove");
                             accNo= input.nextInt();
 
-                                bac= search(list,accNo);
+                                foundAccount= search(list,accNo);
 
-                    if(bac!=null){
-                           
-                        list.remove(bac);
+                    if(foundAccount!=null){
+
+                        list.remove(foundAccount);
                                 System.out.println(" the account number has removed");
 
                                 }else {
