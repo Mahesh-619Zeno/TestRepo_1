@@ -13,6 +13,6 @@ public class MainRunner {
         boolean enabled = FeatureToggle.isFeatureEnabled();
         System.out.println("Feature toggle status: " + (enabled ? "Enabled" : "Disabled"));
 
-        EnvironmentLister.printAll();
+        //EnvironmentLister.printAll();
     }
 }
