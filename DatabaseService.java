@@ -10,7 +10,12 @@ public class DatabaseService {
     }
 
     public void connect() {
-        Logger.info("Attempting to connect to database at " + config.host + ":" + config.port);
-        Logger.info("Database connection successful.");
+        try {
+            String connectionString = DatabaseConfig.getConnectionString();
+            Logger.info("Connecting to database with connection string: " + connectionString);
+        } catch (IllegalStateException e) {
+            Logger.error(e.getMessage());
+            return;
+        }
     }
 }
