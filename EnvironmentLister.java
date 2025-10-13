@@ -6,7 +6,7 @@ public class EnvironmentLister {
 
         System.out.println("--- All Environment Variables ---");
         for (Map.Entry<String, String> entry : env.entrySet()) {
-            System.out.println(entry.getKey() + " = " + entry.getValue());
+            System.out.println(entry.getKey() + " = " + "********");
         }
         System.out.println("---------------------------------");
     }
