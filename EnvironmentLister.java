@@ -4,9 +4,9 @@ public class EnvironmentLister {
     public static void printAll() {
         Map<String, String> env = System.getenv();
 
-        System.out.println("--- All Environment Variables ---");
+        System.out.println(entry.getKey() + " = [REDACTED]");
         for (Map.Entry<String, String> entry : env.entrySet()) {
-            System.out.println(entry.getKey() + " = " + entry.getValue());
+            System.out.println(entry.getKey() + " = [REDACTED]");
         }
         System.out.println("---------------------------------");
     }
