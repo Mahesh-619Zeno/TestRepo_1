@@ -40,7 +40,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
         background_worker(filename)
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(b"File uploaded successfully")
+        self.wfile.write(b"File accepted for processing")
 
 def start_server():
     server = HTTPServer(("0.0.0.0", PORT), SimpleHandler)
