@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     if feedback:
         print("Code Review Feedback:")
-        for msg in feedback:
-            print(f"- {msg}")
+        for message in feedback:
+            print(f"- {message}")
     else:
         print("No coding errors found. Code looks good!")
