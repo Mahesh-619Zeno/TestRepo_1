@@ -1,5 +1,6 @@
 class DataProcessor:
     """Process input data for analysis."""
+    print("Fetching records...")
 
     def fetch_records(self):
         print("Fetching records...")
