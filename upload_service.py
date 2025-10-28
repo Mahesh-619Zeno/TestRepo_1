@@ -8,6 +8,7 @@ logger = logging.getLogger("upload_service")
 UPLOAD_DIR = "uploads"
 PORT = 8080
 
+print('New test')
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR, exist_ok=True)
     os.chmod(UPLOAD_DIR, 0o777)
