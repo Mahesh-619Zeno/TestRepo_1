@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 DATA_FILE = "records.csv"
 DB_FILE = "records.db"
 
+print("testing")
 def create_db():
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
