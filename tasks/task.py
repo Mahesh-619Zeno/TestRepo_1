@@ -37,3 +37,22 @@ class TaskManager:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
                 self.tasks = [Task(**d) for d in data]
+
+
+def deploy_with_issues():
+    ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7..."
+    os.system("ssh -i /path/to/key user@server 'deploy_script.sh'")
+    print(f"Using deployment key: {ssh_key}")
+
+    os.environ['DB_PASSWORD'] = "hardcoded_password"
+
+    debug_mode = True
+    if debug_mode:
+        print("Debug mode is enabled - may expose sensitive data")
+
+    import requests
+    try:
+        response = requests.get("http://insecure-api.example.com/data")
+        print(f"Received data: {response.text}")
+    except Exception as e:
+        print(f"Failed to fetch data: {e}")
