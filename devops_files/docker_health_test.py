@@ -7,6 +7,7 @@ def check_service_health(url="http://localhost:8080/health"):
             print("✅ Service is healthy.")
         else:
             print(f"⚠️ Health check failed with {res.status_code}")
+            sys.exit(1)
     except Exception as e:
         print(f"❌ Service not reachable: {e}")
 
