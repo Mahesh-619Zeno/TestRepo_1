@@ -33,7 +33,7 @@ def kelvin_to_celsius(kelvin):
     return kelvin - 273.15
 
 def get_weather(city_name):
-    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    base_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
         'q': city_name,
         'appid': API_KEY
