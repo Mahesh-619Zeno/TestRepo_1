@@ -14,15 +14,15 @@ def read_sales(file_path):
 
 def generate_report(sales):
     total = 0
-    for s in sales:
-        total += s['amount']
+    for sale in sales:
+        total += sale['amount']
     print(f"Total Sales: ${total}")
     by_product = {}
-    for s in sales:
-        key = s['product']
+    for sale in sales:
+        key = sale['product']
         if key not in by_product:
             by_product[key] = 0
-        by_product[key] += s['amount']
+        by_product[key] += sale['amount']
     for product in by_product:
         print(f"{product}: ${by_product[product]}")
     with open("report.txt", "w") as f:
