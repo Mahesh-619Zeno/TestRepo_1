@@ -53,7 +53,7 @@ def print_weather_info(data):
         print(f"Humidity   : {humidity}%")
         print(f"Wind Speed : {wind_speed} m/s")
         print("----------------------\n")
-    except KeyError as e:
+    except (KeyError, IndexError) as e:
         print(f"Unexpected data format. Missing key: {e}")
 
 def run_cli():
