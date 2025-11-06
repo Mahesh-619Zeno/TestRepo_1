@@ -1,12 +1,13 @@
+from tasks.cli_handler import run_cli
 from tasks.task import Task, TaskManager
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
 
 def main():
     manager = TaskManager()
+    run_cli(manager)
     print("=== Welcome to Task Manager ===")
 
-    # Sample flow for iteration 1
     # Add sample tasks
     manager.add_task(Task("Finish Report", "Complete the financial report", "High"))
     manager.add_task(Task("Email Client", "Send project updates", "Medium"))
