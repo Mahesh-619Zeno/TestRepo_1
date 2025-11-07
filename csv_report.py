@@ -1,8 +1,10 @@
 import csv
 import os
 
-# Load environment variable for sales file, default to 'sales.csv'
+# Load environment variables
 SALES_FILE = os.getenv("SALES_FILE", "sales.csv")
+REPORT_FILE = os.getenv("REPORT_FILE", "report.txt")  # new env var for report output file
+DELETE_SALES_FILE = os.getenv("DELETE_SALES_FILE", "True").lower() in ("true", "1", "yes")  # optional
 
 def read_sales(file_path):
     sales = []
@@ -18,7 +20,7 @@ def read_sales(file_path):
             sales.append(row)
     return sales
 
-def generate_report(sales, report_file="report.txt"):
+def generate_report(sales, report_file):
     total = sum(s['amount'] for s in sales)
     print(f"Total Sales: ${total}")
 
@@ -35,12 +37,12 @@ def generate_report(sales, report_file="report.txt"):
             f.write(f"{product}: {amount}\n")
         f.write(f"Total Sales: {total}\n")
 
-    # Optional: remove the CSV file
-    if os.path.exists(file_path):
-        os.remove(file_path)
+    # Optional: remove the sales file
+    if DELETE_SALES_FILE and os.path.exists(SALES_FILE):
+        os.remove(SALES_FILE)
+        print(f"Deleted {SALES_FILE}")
 
 if __name__ == "__main__":
-    file_path = SALES_FILE
-    sales_data = read_sales(file_path)
-    generate_report(sales_data)
+    sales_data = read_sales(SALES_FILE)
+    generate_report(sales_data, REPORT_FILE)
     input("Press Enter to exit...")
