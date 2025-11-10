@@ -6,7 +6,7 @@ from tasks.search import search_by_title, search_by_priority
 
 def main():
     manager = TaskManager()
-    print(f"=== Welcome to Task Manager ({len(manager.tasks)} tasks loaded) ===")
+    print("=== Welcome to Task Manager ===")
 
     run_cli(manager)
     # Add sample tasks
