@@ -28,6 +28,7 @@ class TaskManager:
         } for t in self.tasks]
 
     def save_tasks(self):
+        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
         data = [t.__dict__ for t in self.tasks]
         with open(DATA_FILE, "w") as f:
             json.dump(data, f, indent=2)
