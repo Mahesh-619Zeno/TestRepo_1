@@ -8,8 +8,8 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("data_sync_service")
 
-DB_PATH = "sync_data.db"
-SYNC_FILE = "sync_payload.json"
+DB_PATH = os.getenv("DB_PATH", "/data/sync_data.db")
+SYNC_FILE = os.getenv("SYNC_FILE", "/data/sync_payload.json")
 
 def initialize_db():
     conn = sqlite3.connect(DB_PATH)
