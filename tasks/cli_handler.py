@@ -57,6 +57,7 @@ def run_cli():
         print(update_status(manager, args.title, args.new_status))
 
     elif args.command == "search":
+        result = []
         if args.title:
             result = search_by_title(manager, args.title)
         elif args.priority:

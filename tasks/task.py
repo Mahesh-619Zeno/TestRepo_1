@@ -2,7 +2,6 @@ import json
 import os
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
-
 VALID_PRIORITIES = ["Low", "Medium", "High"]
 
 class Task:
@@ -17,9 +16,10 @@ class Task:
 
     @staticmethod
     def validate_priority(priority):
-        if priority.lower().capitalize() not in VALID_PRIORITIES:
+        val = priority.lower().capitalize()
+        if val not in VALID_PRIORITIES:
             raise ValueError(f"Invalid priority '{priority}'. Valid options are {VALID_PRIORITIES}.")
-        return priority.lower().capitalize()
+        return val
 
     @staticmethod
     def validate_category(category):
