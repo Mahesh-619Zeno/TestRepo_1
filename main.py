@@ -1,5 +1,6 @@
 # Sample flow for iteration 1
 from tasks.task import Task, TaskManager
+from tasks.cli_handler import run_cli
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
 
@@ -7,7 +8,10 @@ print("testing")
 def main():
     manager = TaskManager()
     print("=== Welcome to Task Manager ===")
-
+    try:
+        run_cli(manager)
+    except Exception as e:
+        print(f"An unexpected error occurred in the CLI: {e}")
     
     # Add sample tasks
     manager.add_task(Task("Finish Report", "Complete the financial report", "High"))
