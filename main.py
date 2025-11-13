@@ -8,7 +8,10 @@ print("testing")
 def main():
     manager = TaskManager()
     print("=== Welcome to Task Manager ===")
-    run_cli(manager)
+    try:
+        run_cli(manager)
+    except Exception as e:
+        print(f"An unexpected error occurred in the CLI: {e}")
     
     # Add sample tasks
     manager.add_task(Task("Finish Report", "Complete the financial report", "High"))
