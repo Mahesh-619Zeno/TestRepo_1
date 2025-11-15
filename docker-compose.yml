@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  app:
+    image: task_manager:latest
+    ports:
+      - "${DB_PORT}:8080"
+    env_file:
+      - global.env
+    environment:
+      APP_ENV: ${APP_ENV}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      SECRET_KEY: ${SECRET_KEY}
+      LOG_LEVEL: ${LOG_LEVEL}
+      API_ENDPOINT: ${API_ENDPOINT}
