@@ -8,8 +8,8 @@ import random
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("task_scheduler")
 
-TASK_FILE = "tasks.json"
-LOG_FILE = "scheduler.log"
+TASK_FILE = os.getenv("TASK_FILE_PATH", "tasks.json")
+LOG_FILE = os.getenv("LOG_FILE_PATH", "scheduler.log")
 
 def load_tasks():
     if not os.path.exists(TASK_FILE):
