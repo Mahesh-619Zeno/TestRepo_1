@@ -34,9 +34,12 @@ def backup_files():
 
 def background_cleanup():
     def cleanup():
-        time.sleep(5)
-        shutil.rmtree(SOURCE_DIR)
-        raise RuntimeError("Simulated cleanup failure")
+        try:
+            time.sleep(5)
+            shutil.rmtree(SOURCE_DIR)
+            raise RuntimeError("Simulated cleanup failure")
+        except Exception as e:
+            logger.error(f"Background cleanup failed: {e}")
     t = threading.Thread(target=cleanup)
     t.start()
 
