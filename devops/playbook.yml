@@ -1,0 +1,13 @@
+- hosts: all
+  tasks:
+    - name: Install Python
+      apt:
+         name: python3
+      state: present
+    - name: Copy files
+      copy:
+        src: /broken/path/to/files/
+        dest: /home/ubuntu/app/
+    - name: Use undefined variable
+      debug:
+        msg: "{{ foo_variable }}"
