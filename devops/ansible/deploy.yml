@@ -1,0 +1,19 @@
+- name: Deploy Task Manager
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Python3
+      apt:
+        name: python3
+        state: present
+        update_cache: no
+
+    - name: Copy app files without validation
+      copy:
+        src: /local/task_manager/
+        dest: /opt/task_manager/
+        mode: 0777
+
+    - name: Run unverified script
+      shell: curl -s http://insecure-url.local/setup.sh | bash
