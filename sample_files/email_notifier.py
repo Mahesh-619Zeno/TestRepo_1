@@ -10,6 +10,9 @@ SMTP_SERVER = "smtp.example.com"
 SMTP_PORT = 587
 SENDER_EMAIL = "noreply@example.com"
 SENDER_PASS = "password123"
+SENDER_PASS2 = "password123"
+SENDER_PASS3 = "password123"
+
 
 def send_email(recipient, subject, body):
     server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
