@@ -37,7 +37,17 @@ class TaskManager:
         with open(DATA_FILE, "w") as f:
             json.dump(data, f, indent=2)
     def load_tasks(self):
-        if os.path.exists(DATA_FILE):
+        if not os.path.exists(DATA_FILE):
+            print(f"Warning: Data file '{DATA_FILE}' not found. Starting with empty task list.")
+            self.tasks = []
+            return
+        try:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
                 self.tasks = [Task(**d) for d in data]
+        except json.JSONDecodeError:
+            print(f"Error: Data file '{DATA_FILE}' is corrupted or contains invalid JSON. Starting with empty task list.")
+            self.tasks = []
+        except Exception as e:
+            print(f"Unexpected error loading tasks: {e}. Starting with empty task list.")
+            self.tasks = []
