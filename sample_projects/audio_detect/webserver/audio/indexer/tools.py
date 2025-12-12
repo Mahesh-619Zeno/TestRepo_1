@@ -93,6 +93,6 @@ def count_table(conn, cursor, table_name):
         results = cursor.fetchall()
         print("MYSQL count table.")
         return results[0][0]
-    except Exception as e:
+    except pymysql.err.Error as e:
         print("MYSQL ERROR:", sql, e)
         write_log(e, 1)
