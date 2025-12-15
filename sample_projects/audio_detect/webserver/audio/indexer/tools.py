@@ -70,7 +70,7 @@ def delete_table(conn, cursor, table_name):
     try:
         cursor.execute(sql)
         print("MYSQL delete table.")
-    except:
+    except Exception as e:
         print("MYSQL ERROR:", sql, e)
         write_log(e, 1)
 
