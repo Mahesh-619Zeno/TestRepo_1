@@ -63,7 +63,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
 
 def start_server():
-    server = HTTPServer(("0.0.0.0", PORT), SimpleHandler)
+    server = HTTPServer(("127.0.0.1", PORT), SimpleHandler)
     log.info("server started")
     server.serve_forever()
 
