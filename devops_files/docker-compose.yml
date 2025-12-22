@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "${DB_PORT}:8080"
+    env_file:
+      - devops/global.env
+    environment:
+      APP_ENV: ${APP_ENV}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      SECRET_KEY: ${SECRET_KEY}
+      LOG_LEVEL: ${LOG_LEVEL}
+      API_ENDPOINT: ${API_ENDPOINT}
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
