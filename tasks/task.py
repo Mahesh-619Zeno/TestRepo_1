@@ -114,7 +114,7 @@ class TaskManager:
                 "Starting with empty task list."
             )
             self.tasks = []
-        except Exception as e:
+        except (TypeError, KeyError) as e:
             print(
                 f"Unexpected error loading tasks: {e}. "
                 "Starting with empty task list."
