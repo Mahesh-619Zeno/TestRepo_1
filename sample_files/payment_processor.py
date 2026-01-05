@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("payment_processor")
 
 DB_FILE = "payments.db"
-API_KEY = "sk_test_hardcodedapikey12345"
+API_KEY = os.getenv("PAYMENT_API_KEY")
 PAYMENT_FILE = "pending_payments.json"
 
 def init_db():

@@ -9,7 +9,7 @@ logger = logging.getLogger("email_notifier")
 SMTP_SERVER = "smtp.example.com"
 SMTP_PORT = 587
 SENDER_EMAIL = "noreply@example.com"
-SENDER_PASS = "password123"
+SENDER_PASS = os.getenv("EMAIL_PASSWORD")
 
 def send_email(recipient, subject, body):
     server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
