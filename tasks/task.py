@@ -9,7 +9,7 @@ class Task:
         self.title = title
         self.description = description
         self.priority = priority
-        self.status = status or "Pending"  # ensure status is always set
+        self.status = status if status is not None else "Pending"  # ensure status is always set
 
 class TaskManager:
     def __init__(self):
@@ -32,7 +32,7 @@ class TaskManager:
             "Description": t.description,
             "Priority": t.priority,
             "Status": t.status
-        } for t in self.tasks], key=lambda x: priority_order.get(x["Priority"], 2))
+        } for t in self.tasks], key=lambda x: priority_order.get(x["Priority"], len(priority_order) + 1))
 
     def save_tasks(self):
         data = [t.__dict__ for t in self.tasks]
