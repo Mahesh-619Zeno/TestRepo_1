@@ -3,7 +3,7 @@ from tasks.task import Task, TaskManager
 from tasks.search import search_by_title, search_by_priority, search_by_category
 from tasks.status import update_status
 
-def run_cli():
+def run_cli(manager):
     parser = argparse.ArgumentParser(description="Task Manager CLI with prioritization and categorization.")
     subparsers = parser.add_subparsers(dest="command")
 

@@ -1,7 +1,8 @@
+from asyncio.log import logger
 import json
 import os
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
+DATA_FILE = os.getenv("TASK_DATA_FILE", os.path.join(os.path.dirname(__file__), "../data/tasks_data.json"))
 
 VALID_PRIORITIES = ["Low", "Medium", "High"]
 
@@ -70,8 +71,8 @@ class TaskManager:
             data = [t.__dict__ for t in self.tasks]
             with open(DATA_FILE, "w") as f:
                 json.dump(data, f, indent=2)
-        except Exception as e:
-            print(f"Error saving tasks: {e}")
+        except (IOError, OSError) as e:
+            logger.error("Error saving tasks", exc_info=True)
 
     def load_tasks(self):
         if not os.path.exists(DATA_FILE):
