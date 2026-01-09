@@ -10,6 +10,7 @@ def parse_due_date_input(date_str: str):
     """
     Parse user input 'YYYY-MM-DD HH:MM' and return ISO 8601 string (or None, error).
     """
+    now = datetime.now()
     if not date_str or not date_str.strip():
         return None, None  # treat empty as "no change" for some flows
 
@@ -17,8 +18,7 @@ def parse_due_date_input(date_str: str):
         due_dt = datetime.strptime(date_str.strip(), INPUT_DATE_FORMAT)
     except ValueError:
         return None, "Invalid format. Expected 'YYYY-MM-DD HH:MM'."
-
-    if due_dt < datetime.now():
+    if due_dt < now:
         return None, "Due date cannot be in the past."
 
     return due_dt.isoformat(), None
@@ -45,4 +45,4 @@ def set_task_due_date(task_manager, title: str, due_date_input: str):
 
     task.due_date = iso_str
     task_manager.save_tasks()
-    return f"Task '{title}' due date set to {due_date_input}."
+    return f"Task '{title}' due date set to {datetime.fromisoformat(iso_str).strftime(INPUT_DATE_FORMAT)}."

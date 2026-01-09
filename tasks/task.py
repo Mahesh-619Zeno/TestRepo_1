@@ -85,13 +85,14 @@ class TaskManager:
                     return datetime.max
 
             filtered = sorted(filtered, key=due_sort_key)
-        elif sort_by_priority:
+        if sort_by_priority:
             filtered = sort_tasks_by_priority(filtered)
 
         return [t.to_dict() for t in filtered]
 
     def save_tasks(self):
         data = [t.to_dict() for t in self.tasks]
+        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
         with open(DATA_FILE, "w") as f:
             json.dump(data, f, indent=2)
 

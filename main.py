@@ -10,11 +10,13 @@ from tasks.deadline import set_task_due_date
 def input_with_validation(prompt, valid_options=None, allow_empty=False):
     while True:
         val = input(prompt).strip()
-        if not val and allow_empty:
-            return val
-        if valid_options and val.lower() not in [v.lower() for v in valid_options]:
+        if not val and not allow_empty:
+            print("Error: This field cannot be empty.")
+        elif valid_options and val and val.lower() not in [v.lower() for v in valid_options]:
             print(f"Invalid option. Valid options: {', '.join(valid_options)}")
         else:
+            if val or allow_empty:
+                return val
             return val
 
 
@@ -34,7 +36,7 @@ def main():
         command = input("Enter command: ").strip().lower()
 
         if command == "add":
-            title = input("Enter task title: ").strip()
+            title = input_with_validation("Enter task title: ")
             description = input("Enter task description: ").strip()
             try:
                 priority_input = input(
@@ -108,9 +110,10 @@ def main():
 
         elif command == "update":
             title = input("Enter the title of task to update status: ").strip()
-            new_status = input(
-                "Enter new status (Pending, In-Progress, Completed): "
-            ).strip()
+            new_status = input_with_validation(
+                "Enter new status (Pending, In-Progress, Completed): ",
+                ["Pending", "In-Progress", "Completed"]
+            )
             result = update_status(manager, title, new_status)
             print(result)
 
