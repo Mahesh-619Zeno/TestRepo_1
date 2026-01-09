@@ -1,11 +1,12 @@
 import json
 import os
   
-DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
+DATA_PATH = os.getenv("TASK_DATA_PATH", os.path.join(os.path.dirname(__file__), "../data/tasks_data.json"))
+DATA_FILE = DATA_PATH
 try:
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
 except OSError as e:
-    print(f"Warning: Could not create data directory: {e}")
+    raise RuntimeError(f"Fatal: Could not create data directory: {e}") from e
 
 class Task:
     def __init__(self, title, description="", priority="Medium", status=None):
