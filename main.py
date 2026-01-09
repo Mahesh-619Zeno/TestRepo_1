@@ -15,8 +15,6 @@ def input_with_validation(prompt, valid_options=None, allow_empty=False):
         elif valid_options and val and val.lower() not in [v.lower() for v in valid_options]:
             print(f"Invalid option. Valid options: {', '.join(valid_options)}")
         else:
-            if val or allow_empty:
-                return val
             return val
 
 
@@ -132,7 +130,7 @@ def main():
                 results = search_by_priority(manager, priority_input)
             if results:
                 for t in results:
-                    print(vars(t))
+                    print(t)
             else:
                 print("No matching tasks found.")
 

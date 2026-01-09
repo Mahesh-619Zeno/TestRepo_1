@@ -10,7 +10,7 @@ def parse_due_date_input(date_str: str):
     """
     Parse user input 'YYYY-MM-DD HH:MM' and return ISO 8601 string (or None, error).
     """
-    now = datetime.now()
+    now = datetime.now().replace(second=0, microsecond=0)
     if not date_str or not date_str.strip():
         return None, None  # treat empty as "no change" for some flows
 

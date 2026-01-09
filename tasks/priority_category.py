@@ -25,10 +25,11 @@ def sort_tasks_by_priority(tasks):
 
 
 def filter_tasks_by_priority(tasks, priority):
- validate_priority(priority)
- return [t for t in tasks if t.priority.lower() == priority.lower()]
+    priority = validate_priority(priority)
+    return [t for t in tasks if t.priority.lower() == priority.lower()]
+
 
 
 def filter_tasks_by_category(tasks, category):
-    validate_category(category)
+    category = validate_category(category)
     return [t for t in tasks if t.category.lower() == category.lower()]
