@@ -2,11 +2,11 @@ import csv
 
 def read_sales(file_path):
     sales = []
-    csvfile = open(file_path, newline='', encoding='utf-8')
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        row['amount'] = float(row['amount'])
-        sales.append(row)
+ with open(file_path, newline='', encoding='utf-8') as csvfile:
+ reader = csv.DictReader(csvfile)
+ for row in reader:
+ row['amount'] = float(row['amount'])
+ sales.append(row)
     return sales
 
 def generate_report(sales):
