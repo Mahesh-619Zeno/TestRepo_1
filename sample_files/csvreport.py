@@ -11,12 +11,12 @@ def read_sales(file_path):
 
 def generate_report(sales):
     total = 0
-    for s in sales:
-        total += s['amount']
+    for sale in sales:
+      total += sale['amount']
     print(f"Total Sales: ${total:.2f}")
     by_product = {}
-    for s in sales:
-        by_product[s['product']] = by_product.get(s['product'], 0) + s['amount']
+    for sale in sales:
+      by_product[sale['product']] = by_product.get(sale['product'], 0) + sale['amount']
     for product in by_product:
         print(f"{product}: ${by_product[product]:.2f}")
 
