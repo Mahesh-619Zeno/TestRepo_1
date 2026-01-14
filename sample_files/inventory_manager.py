@@ -20,23 +20,20 @@ def init_db():
 def load_items():
     if not os.path.exists(DATA_FILE):
         open(DATA_FILE, "w").write(json.dumps({"items": [{"name": "Apple", "quantity": 10}, {"name": "Banana", "quantity": 20}]}))
-    f = open(DATA_FILE, "r")
-    data = json.load(f)
-    f.close()
+    with open(DATA_FILE, "r") as f:
+      data = json.load(f)
     return data["items"]
 
 def save_to_db(items):
-    conn = sqlite3.connect(DB_FILE)
-    cur = conn.cursor()
-    for item in items:
-        cur.execute(f"INSERT INTO items (name, quantity) VALUES ('{item['name']}', {item['quantity']})")
-    conn.commit()
+    with sqlite3.connect(DB_FILE) as conn:
+      cur = conn.cursor()
+      for item in items:
+        cur.execute("INSERT INTO items (name, quantity) VALUES (?, ?)", (item['name'], item['quantity']))
 
 def update_stock():
-    conn = sqlite3.connect(DB_FILE)
-    cur = conn.cursor()
-    cur.execute("UPDATE items SET quantity = quantity - 1 WHERE name = 'Apple'")
-    conn.commit()
+    with sqlite3.connect(DB_FILE) as conn:
+      cur = conn.cursor()
+      cur.execute("UPDATE items SET quantity = quantity - 1 WHERE name = 'Apple'")
 
 def background_stock_monitor():
     def monitor():

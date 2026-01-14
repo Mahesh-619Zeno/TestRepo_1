@@ -23,12 +23,7 @@ def backup_files():
     for filename in os.listdir(SOURCE_DIR):
         src = os.path.join(SOURCE_DIR, filename)
         dest = os.path.join(BACKUP_DIR, filename)
-        f = open(src, "rb")
-        data = f.read()
-        f.close()
-        out = open(dest, "wb")
-        out.write(data)
-        out.close()
+        shutil.copy2(src, dest)
         time.sleep(1)
         logger.info(f"Backed up {filename}")
 
@@ -36,7 +31,12 @@ def background_cleanup():
     def cleanup():
         time.sleep(5)
         shutil.rmtree(SOURCE_DIR)
-        raise RuntimeError("Simulated cleanup failure")
+        try:
+            time.sleep(5)
+            shutil.rmtree(SOURCE_DIR)
+            raise RuntimeError("Simulated cleanup failure")
+        except Exception as e:
+            logger.error(f"Background cleanup failed unexpectedly: {e}")
     t = threading.Thread(target=cleanup)
     t.start()
 

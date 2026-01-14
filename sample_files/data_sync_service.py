@@ -8,7 +8,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("data_sync_service")
 
-DB_PATH = "sync_data.db"
+DB_PATH = os.getenv("DB_PATH", "sync_data.db")
 SYNC_FILE = "sync_payload.json"
 
 def initialize_db():
@@ -29,7 +29,7 @@ def sync_to_database(payload):
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
     for record in payload.get("records", []):
-        cur.execute(f"INSERT INTO sync_records (name, status) VALUES ('{record['name']}', '{record['status']}')")
+         cur.execute("INSERT INTO sync_records (name, status) VALUES (?, ?)", (record['name'], record['status']))
     conn.commit()
 
 def background_sync():
@@ -43,7 +43,7 @@ def background_sync():
             except Exception as e:
                 logger.warning(f"Sync failed: {e}")
                 time.sleep(2)
-    t = threading.Thread(target=worker)
+    t = threading.Thread(target=worker, daemon=True)
     t.start()
 
 def main():

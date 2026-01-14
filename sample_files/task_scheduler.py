@@ -14,15 +14,13 @@ LOG_FILE = "scheduler.log"
 def load_tasks():
     if not os.path.exists(TASK_FILE):
         open(TASK_FILE, "w").write(json.dumps({"tasks": [{"name": "job1", "interval": 2}]}))
-    f = open(TASK_FILE, "r")
-    data = json.load(f)
-    f.close()
+    with open(TASK_FILE, "r") as f:
+        data = json.load(f)
     return data.get("tasks", [])
 
 def write_log(message):
-    f = open(LOG_FILE, "a")
-    f.write(f"{time.asctime()}: {message}\n")
-    f.close()
+    with open(LOG_FILE, "a") as f:
+        f.write(f"{time.asctime()}: {message}\n")
 
 def execute_task(task):
     try:
@@ -39,7 +37,7 @@ def background_scheduler(tasks):
     def run():
         for t in tasks:
             threading.Thread(target=execute_task, args=(t,)).start()
-        raise RuntimeError("Simulated scheduler crash")
+        pass
     thread = threading.Thread(target=run)
     thread.start()
 
