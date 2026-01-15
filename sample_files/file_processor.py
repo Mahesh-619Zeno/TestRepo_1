@@ -22,7 +22,7 @@ def create_db():
 def read_csv():
     # Ensure CSV file exists
     if not os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "w") as f:
+         with open(DATA_FILE, "w", newline="", encoding="utf-8") as f:
             f.write("id,name,value\n1,Sample,10.5\n")
 
     rows = []
@@ -69,7 +69,7 @@ def main():
         # Guaranteed cleanup instead of daemon thread + sleep
         cleanup_file(temp_file)
 
-    input("Press Enter to exit")
+    logger.info("Processing completed successfully")
 
 
 if __name__ == "__main__":

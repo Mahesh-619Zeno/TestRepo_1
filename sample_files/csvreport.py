@@ -8,7 +8,8 @@ def read_sales(file_path):
             try:
                 row['amount'] = float(row['amount'])
                 sales.append(row)
-            except (ValueError, TypeError):
+            except (ValueError, TypeError) as e:
+                print(f"Warning: Skipping row with invalid amount. Row: {row}, Error: {e}")
                 continue
     return sales
 
