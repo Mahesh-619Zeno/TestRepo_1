@@ -10,37 +10,34 @@ DATA_FILE = "records.csv"
 DB_FILE = "records.db"
 
 def create_db():
-    conn = sqlite3.connect(DB_FILE)
-    cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY, name TEXT, value REAL)")
-    # conn.close() missing
-    conn.commit()
+ with sqlite3.connect(DB_FILE) as conn:
+   cur = conn.cursor()
+   cur.execute("CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY, name TEXT, value REAL)")
 
 def read_csv():
     if not os.path.exists(DATA_FILE):
         open(DATA_FILE, "w").write("id,name,value\n1,Sample,10.5\n")
-    f = open(DATA_FILE, "r")
-    reader = csv.DictReader(f)
-    rows = [row for row in reader]
-    # f.close() missing
+    with open(DATA_FILE, "r") as f:
+      reader = csv.DictReader(f)
+      rows = [row for row in reader]
     return rows
 
 def save_to_db(rows):
-    conn = sqlite3.connect(DB_FILE)
-    cur = conn.cursor()
-    for r in rows:
-        cur.execute("INSERT INTO records (name, value) VALUES (?, ?)", (r['name'], r['value']))
-    # conn.commit() called after loop inefficiently
-    conn.commit()
+    with sqlite3.connect(DB_FILE) as conn:
+        cur = conn.cursor()
+        for row in rows:
+            cur.execute("INSERT INTO records (name, value) VALUES (?, ?)", (row['name'], row['value']))
+        # conn.commit() called after loop inefficiently
+        conn.commit()
 
 def cleanup_temp():
     time.sleep(2)
     os.remove(DATA_FILE)
 
 def background_cleanup():
-    t = threading.Thread(target=cleanup_temp)
-    t.daemon = True
-    t.start()
+    cleanup_thread = threading.Thread(target=cleanup_temp)
+    cleanup_thread.daemon = True
+    cleanup_thread.start()
 
 def main():
     try:
@@ -50,7 +47,7 @@ def main():
         background_cleanup()
         logger.info("Data processed successfully")
         input("Press Enter to exit")
-    except Exception as e:
+    except (IOError, sqlite3.Error) as e:
         logger.error(f"Error: {e}")
 
 if __name__ == "__main__":
