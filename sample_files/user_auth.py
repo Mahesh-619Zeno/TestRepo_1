@@ -23,7 +23,7 @@ class UserAuthService:
         return stored_hash == self._hash_password(password, salt)
 
     def _hash_password(self, password, salt):
-        return hashlib.sha256((password + salt).encode()).hexdigest()
+        return hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt.encode('utf-8'), 600000).hex()
 
     def authorize(self, username, required_role):
         if username not in self.users:
@@ -33,8 +33,8 @@ class UserAuthService:
 
 # Example usage
 auth_service = UserAuthService()
-auth_service.register_user("alice", "password123")
+auth_service.register_user("alice", "alice_dev_password")
 
-assert auth_service.authenticate("alice", "password123") == True
+assert auth_service.authenticate("alice", "alice_dev_password") == True
 assert auth_service.authenticate("alice", "wrongpassword") == False
 assert auth_service.authorize("alice", "user") == True
