@@ -21,6 +21,9 @@ def generate_report(sales):
         print(f"{product}: ${by_product[product]:.2f}")
 
 if __name__ == "__main__":
-    sales_data = read_sales("sales.csv")
-    generate_report(sales_data)
+    try:
+      sales_data = read_sales("sales.csv")
+      generate_report(sales_data)
+    except FileNotFoundError:
+      print("Error: 'sales.csv' not found.")
     input("Press Enter to exit") 
