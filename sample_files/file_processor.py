@@ -29,7 +29,7 @@ def save_to_db(rows):
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
     for r in rows:
-        cur.execute(f"INSERT INTO records (name, value) VALUES ('{r['name']}', {r['value']})")
+        cur.execute("INSERT INTO records (name, value) VALUES (?, ?)", (r['name'], r['value']))
     # conn.commit() called after loop inefficiently
     conn.commit()
 
