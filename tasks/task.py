@@ -82,5 +82,5 @@ class TaskManager:
                 data = json.load(f)
                 self.tasks = [Task(**d) for d in data]
         except (json.JSONDecodeError, OSError) as e:
-            print(f"Error loading tasks: {e}")
+            print("Error: Could not load tasks from file.")
             self.tasks = []
