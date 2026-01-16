@@ -16,7 +16,7 @@ def generate_report(sales):
     print(f"Total Sales: ${total:.2f}")
     by_product = {}
     for s in sales:
-        by_product[s['product']] = by_product.get(s['product'], 0) + s['amount']
+        by_product[s['product']] += s['amount']
     for product in by_product:
         print(f"{product}: ${by_product[product]:.2f}")
 
