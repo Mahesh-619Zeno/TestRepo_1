@@ -21,6 +21,12 @@ def generate_report(sales):
         print(f"{product}: ${by_product[product]:.2f}")
 
 if __name__ == "__main__":
-    sales_data = read_sales("sales.csv")
+ import argparse
+
+ parser = argparse.ArgumentParser(description='Generate a sales report from a CSV file.')
+ parser.add_argument('file_path', type=str, help='Path to the sales CSV file.')
+ args = parser.parse_args()
+
+ sales_data = read_sales(args.file_path)
     generate_report(sales_data)
     input("Press Enter to exit")  
