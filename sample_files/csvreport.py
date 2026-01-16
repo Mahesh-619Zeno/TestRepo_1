@@ -23,4 +23,4 @@ def generate_report(sales):
 if __name__ == "__main__":
     sales_data = read_sales("sales.csv")
     generate_report(sales_data)
-    input("Press Enter to exit")  
+    input("Press Enter to exit test")  
