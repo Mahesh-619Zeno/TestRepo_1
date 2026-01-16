@@ -33,7 +33,7 @@ class UserAuthService:
 
 # Example usage
 auth_service = UserAuthService()
-auth_service.register_user("alice", "alice_dev_password")
+auth_service.register_user("alice", os.getenv("ALICE_DEV_PASSWORD", "a_secure_default_password"))
 
 assert auth_service.authenticate("alice", "alice_dev_password") == True
 assert auth_service.authenticate("alice", "wrongpassword") == False
