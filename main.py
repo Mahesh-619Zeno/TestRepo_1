@@ -2,6 +2,7 @@
 from tasks.task import Task, TaskManager
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
+from tasks.collaboration import integrate_collaboration_with_tasks
 
 print("testing")
 def main():
@@ -28,6 +29,14 @@ def main():
     results = search_by_title(manager, "Team")
     for t in results:
         print(vars(t))
+
+    # NEW: Add collaboration integration
+    print("\n--- Setting up Team Collaboration ---")
+    collab = integrate_collaboration_with_tasks(manager)
+    
+    print("\n--- Team Workload Report ---")
+    print(collab.generate_collaboration_report())
+
 
 if __name__ == "__main__":
     main()
