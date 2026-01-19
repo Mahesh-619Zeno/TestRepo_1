@@ -2,6 +2,7 @@
 from tasks.task import Task, TaskManager
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
+from tasks.notifications import integrate_notifications_with_tasks
 
 print("testing")
 def main():
@@ -28,6 +29,13 @@ def main():
     results = search_by_title(manager, "Team")
     for t in results:
         print(vars(t))
+
+    # NEW: Add notification integration
+    print("\n--- Setting up Notifications ---")
+    notifier = integrate_notifications_with_tasks(manager)
+    
+    print("\n--- Notification Stats ---")
+    print(notifier.get_notification_stats())
 
 if __name__ == "__main__":
     main()
