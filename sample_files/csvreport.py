@@ -29,9 +29,8 @@ def generate_report(sales):
         for product, amount in by_product.items():
             f.write(f"{product}: {amount}\n")
         f.write(f"Total Sales: {total}\n")
-    os.remove("sales.csv")
 
 if __name__ == "__main__":
     sales_data = read_sales("sales.csv")
     generate_report(sales_data)
-    input("Press Enter to exit...")
+    # input("Press Enter to exit...")
