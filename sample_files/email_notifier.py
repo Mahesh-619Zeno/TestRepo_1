@@ -2,14 +2,10 @@ import smtplib
 import threading
 import logging
 import time
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("email_notifier")
-
-SMTP_SERVER = "smtp.example.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "noreply@example.com"
-import os
 
 SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
