@@ -4,6 +4,8 @@ import os
 DATA_FILE = os.getenv("TASK_DATA_FILE", os.path.join(os.path.dirname(__file__), "../data/tasks_data.json"))
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)  # ensure data directory exists
 
+print("testing..")
+
 class Task:
     def __init__(self, title, description="", priority="Medium", status=None):
         self.title = title
