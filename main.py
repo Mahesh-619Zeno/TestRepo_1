@@ -2,6 +2,7 @@
 from tasks.task import Task, TaskManager
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
+from tasks.reports import integrate_reports_with_tasks
 
 print("testing")
 def main():
@@ -28,6 +29,13 @@ def main():
     results = search_by_title(manager, "Team")
     for t in results:
         print(vars(t))
+
+    print("\n--- Generating Reports ---")
+    reporter = integrate_reports_with_tasks(manager)
+    
+    print("\n--- Burndown Data ---")
+    print(reporter.get_burndown_chart_data())
+
 
 if __name__ == "__main__":
     main()
