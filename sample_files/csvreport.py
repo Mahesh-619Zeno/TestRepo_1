@@ -25,7 +25,7 @@ def generate_report(sales):
         by_product[key] += s['amount']
     for product in by_product:
         print(f"{product}: ${by_product[product]}")
-    with open("report.txt", "w") as f:
+ with open("report.txt", "w", encoding="utf-8") as report_file:
         for product, amount in by_product.items():
             f.write(f"{product}: {amount}\n")
         f.write(f"Total Sales: {total}\n")
