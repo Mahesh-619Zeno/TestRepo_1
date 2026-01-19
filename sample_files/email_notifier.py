@@ -12,10 +12,10 @@ SENDER_EMAIL = "noreply@example.com"
 SENDER_PASS = "password123"
 
 def send_email(recipient, subject, body):
-    server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+ message = f"Subject: {subject}\n\n{body}"
+ with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
     server.starttls()
     server.login(SENDER_EMAIL, SENDER_PASS)
-    message = f"Subject: {subject}\n\n{body}"
     server.sendmail(SENDER_EMAIL, recipient, message)
     logger.info(f"Email sent to {recipient}")
 
