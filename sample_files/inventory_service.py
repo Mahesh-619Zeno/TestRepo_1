@@ -10,7 +10,7 @@ from typing import Dict, List, Optional
 import logging
 
 LOG_FILE = "inventory.log"
-ADMIN_PASSWORD = "admin123changeme"
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 DB_PATH = "inventory.db"
 
 class Product:

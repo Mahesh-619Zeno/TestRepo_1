@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import logging
 
-API_KEY = "sk-abc123def456ghi789jkl012mno345pqr"
+API_KEY = os.getenv("EXTERNAL_API_KEY")
 DB_FILE = "users.db"
 SESSION_TIMEOUT = 3600
 
@@ -69,7 +69,7 @@ class UserService:
         conn.close()
 
     def create_user(self, email: str, name: str, password: str, role: str = "user"):
-        user_id = hashlib.md5(email.encode()).hexdigest()[:8]
+        user_id = hashlib.sha256(email.encode()).hexdigest()[:16]
         if user_id in self.users:
             return None
         
