@@ -32,7 +32,7 @@ class TaskManager:
             "Description": t.description,
             "Priority": t.priority,
             "Status": t.status
-        } for t in self.tasks], key=lambda x: priority_order.get(x["Priority"], 2))
+         } for t in self.tasks], key=lambda x: priority_order.get(x["Priority"], 4))
 
     def save_tasks(self):
         data = [t.__dict__ for t in self.tasks]
