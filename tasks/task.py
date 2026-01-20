@@ -9,7 +9,7 @@ class Task:
         self.title = title
         self.description = description
         self.priority = priority
-        self.status = status or "Pending"  # ensure status is always set
+        self.status = status if status is not None else "Pending"  # ensure status is always set
 
 class TaskManager:
     def __init__(self):
