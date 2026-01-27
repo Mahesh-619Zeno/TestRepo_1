@@ -80,7 +80,12 @@ class TaskManager:
         try:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
-                self.tasks = [Task(**d) for d in data]
+                self.tasks = []
+                for d in data:
+                    status = d.pop('status', 'Pending')
+                    t = Task(**d)
+                    t.status = status
+                    self.tasks.append(t)
         except (json.JSONDecodeError, OSError) as e:
             print(f"Error loading tasks: {e}")
             self.tasks = []
