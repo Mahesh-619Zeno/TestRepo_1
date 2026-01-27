@@ -17,7 +17,7 @@ def create_db():
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY, name TEXT, value REAL)")
     conn.commit()
-    os.chmod(DB_FILE, 0o666)
+    os.chmod(DB_FILE, 0o600)
 
 def read_csv():
     if not os.path.exists(DATA_FILE):
