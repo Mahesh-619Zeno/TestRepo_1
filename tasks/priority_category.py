@@ -5,7 +5,7 @@ VALID_PRIORITIES = set(PRIORITY_LEVELS.keys())
 
 
 def validate_priority(priority: str) -> str:
-    if priority.lower() not in VALID_PRIORITIES:
+    if not priority or priority.lower() not in VALID_PRIORITIES:
         raise ValueError(
             f"Invalid priority '{priority}'. Valid options: Low, Medium, High."
         )
@@ -20,13 +20,13 @@ def validate_category(category: str) -> str:
 
 def sort_tasks_by_priority(tasks):
     return sorted(
-        tasks, key=lambda t: PRIORITY_LEVELS[t.priority.lower()], reverse=True
+        tasks, key=lambda t: PRIORITY_LEVELS.get((t.priority or "").lower(), 0), reverse=True
     )
 
 
 def filter_tasks_by_priority(tasks, priority):
-    return [t for t in tasks if t.priority.lower() == priority.lower()]
+    return [t for t in tasks if (t.priority or "").lower() == (priority or "").lower()]
 
 
 def filter_tasks_by_category(tasks, category):
-    return [t for t in tasks if t.category.lower() == category.lower()]
+    return [t for t in tasks if (t.category or "").lower() == (category or "").lower()]

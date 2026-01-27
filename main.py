@@ -59,7 +59,7 @@ def main():
                     iso_due, error = parse_due_date_input(due_input)
                     if error:
                         print(f"Error setting due date: {error}")
-                        iso_due = None
+                        continue
 
                 task = Task(
                     title=title,
@@ -108,9 +108,10 @@ def main():
 
         elif command == "update":
             title = input("Enter the title of task to update status: ").strip()
-            new_status = input(
-                "Enter new status (Pending, In-Progress, Completed): "
-            ).strip()
+            new_status = input_with_validation(
+                "Enter new status (Pending, In-Progress, Completed): ",
+                ["Pending", "In-Progress", "Completed"]
+            )
             result = update_status(manager, title, new_status)
             print(result)
 

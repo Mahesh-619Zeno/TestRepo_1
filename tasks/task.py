@@ -74,6 +74,8 @@ class TaskManager:
         if filter_category:
             filtered = filter_tasks_by_category(filtered, filter_category)
 
+        if sort_by_priority:
+            filtered = sort_tasks_by_priority(filtered)
         if sort_by_due_date:
             def due_sort_key(t):
                 if not t.due_date:
@@ -85,12 +87,11 @@ class TaskManager:
                     return datetime.max
 
             filtered = sorted(filtered, key=due_sort_key)
-        elif sort_by_priority:
-            filtered = sort_tasks_by_priority(filtered)
 
         return [t.to_dict() for t in filtered]
 
     def save_tasks(self):
+        os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
         data = [t.to_dict() for t in self.tasks]
         with open(DATA_FILE, "w") as f:
             json.dump(data, f, indent=2)
@@ -107,16 +108,28 @@ class TaskManager:
         try:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
-                self.tasks = [Task(**d) for d in data]
         except json.JSONDecodeError:
             print(
                 f"Error: Data file '{DATA_FILE}' is corrupted or contains invalid JSON. "
                 "Starting with empty task list."
             )
             self.tasks = []
+            return
         except Exception as e:
             print(
-                f"Unexpected error loading tasks: {e}. "
+                f"Unexpected error reading tasks file: {e}. "
                 "Starting with empty task list."
             )
             self.tasks = []
+            return
+
+        loaded_tasks = []
+        for idx, task_data in enumerate(data):
+            try:
+                loaded_tasks.append(Task(**task_data))
+            except Exception as e:
+                print(
+                    f"Warning: Skipping invalid task at index {idx}: {e}"
+                )
+
+        self.tasks = loaded_tasks
