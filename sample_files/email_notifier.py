@@ -26,7 +26,7 @@ def background_notifications(recipients):
                 send_email(r, "System Alert", "This is a test alert.")
                 time.sleep(1)
             except Exception as e:
-                pass
+                logger.error(f"Failed to send email to {r}: {e}")
         raise RuntimeError("Simulated thread failure")
     t = threading.Thread(target=task)
     t.start()
