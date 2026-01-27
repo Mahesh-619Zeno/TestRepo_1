@@ -10,4 +10,4 @@
         dest: /home/ubuntu/app/
     - name: Use undefined variable
       debug:
-        msg: "{{ foo_variable }}"
+        msg: "{{ foo_variable | default('No message provided') }}"
