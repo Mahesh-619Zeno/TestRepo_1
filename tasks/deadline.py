@@ -34,7 +34,7 @@ def set_task_due_date(task_manager, title: str, due_date_input: str):
     if not task:
         return f"Task '{title}' not found."
 
-    if not due_date_input.strip():
+    if not due_date_input or not due_date_input.strip():
         task.due_date = None
         task_manager.save_tasks()
         return f"Due date removed from task '{title}'."
