@@ -4,7 +4,7 @@ from tasks.search import search_by_title, search_by_priority, search_by_category
 from tasks.status import update_status
 
 def run_cli():
-    parser = argparse.ArgumentParser(description="Task Manager CLI with prioritization and categorization.")
+    parser = argparse.ArgumentParser(description="Task Manager CLI.")
     subparsers = parser.add_subparsers(dest="command")
 
     # Create Command
@@ -14,11 +14,8 @@ def run_cli():
     create_parser.add_argument("--priority", required=True, choices=["Low", "Medium", "High"], help="Task priority.")
     create_parser.add_argument("--category", required=True, help="Task category.")
 
-    # List Command
+    # List Command (simplified)
     list_parser = subparsers.add_parser("list", help="List all tasks.")
-    list_parser.add_argument("--filter-priority", help="Filter tasks by priority.")
-    list_parser.add_argument("--filter-category", help="Filter tasks by category.")
-    list_parser.add_argument("--sort", choices=["priority"], help="Sort tasks by a field.")
 
     # Update Command
     update_parser = subparsers.add_parser("update-status", help="Update task status.")
@@ -42,15 +39,12 @@ def run_cli():
             print(e)
 
     elif args.command == "list":
-        filter_pri = args.filter_priority
-        filter_cat = args.filter_category
-        sort_flag = args.sort == "priority"
-        result = manager.list_tasks(filter_pri, filter_cat, sort_flag)
+        tasks = manager.list_tasks()
         print("\n--- Task List ---")
-        if isinstance(result, str):
-            print(result)
+        if not tasks:
+            print("No tasks found.")
         else:
-            for t in result:
+            for t in tasks:
                 print(t)
 
     elif args.command == "update-status":
