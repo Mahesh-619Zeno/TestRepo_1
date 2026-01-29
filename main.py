@@ -1,13 +1,13 @@
-# Sample flow for iteration 1
 from tasks.task import Task, TaskManager
 from tasks.status import update_status
 from tasks.search import search_by_title, search_by_priority
+from tasks.export_import import export_tasks, import_tasks  # NEW IMPORT
 
 print("testing")
+
 def main():
     manager = TaskManager()
     print("=== Welcome to Task Manager ===")
-
     
     # Add sample tasks
     manager.add_task(Task("Finish Report", "Complete the financial report", "High"))
@@ -28,6 +28,14 @@ def main():
     results = search_by_title(manager, "Team")
     for t in results:
         print(vars(t))
+
+    # NEW: Test Export
+    print("\n--- Export Tasks ---")
+    print(export_tasks(manager, "backup.json"))
+
+    # NEW: Test Import (simulating overwrite)
+    print("\n--- Import Tasks (Overwrite) ---")
+    print(import_tasks(manager, "backup.json", overwrite=True))
 
 if __name__ == "__main__":
     main()
