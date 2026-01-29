@@ -28,21 +28,16 @@ class TaskManager:
         self.save_tasks()
 
     def list_tasks(self):
-        if self.current_user.role == "Admin":
-            return [self._task_dict(t, include_owner=True) for t in self.tasks]
         return [self._task_dict(t) for t in self.tasks if t.user_id == self.current_user.user_id]
 
-    def _task_dict(self, task, include_owner=False):
-        d = {
+    def _task_dict(self, task):
+        return {
             "ID": task.task_id,
             "Title": task.title,
             "Description": task.description,
             "Priority": task.priority,
             "Status": task.status,
         }
-        if include_owner:
-            d["Owner"] = task.user_id
-        return d
 
     def delete_task(self, task_id):
         for t in self.tasks:

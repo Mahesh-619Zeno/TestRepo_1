@@ -17,31 +17,6 @@ def show_main_menu(user):
         print("7. Manage Users")
     print("0. Logout and Exit")
 
-def handle_admin_user_management(um, current_username):
-    while True:
-        print("\n-- Admin User Management --")
-        print("1. Add User")
-        print("2. Remove User")
-        print("3. List Users")
-        print("0. Back")
-        choice = input("Select: ").strip()
-
-        if choice == "1":
-            username = input("Username: ").strip()
-            password = input("Password: ").strip()
-            role = input("Role (Admin/User): ").strip()
-            print(um.add_user(username, password, role))
-        elif choice == "2":
-            username = input("Username to remove: ").strip()
-            print(um.remove_user(username, current_username))
-        elif choice == "3":
-            for u in um.list_users():
-                print(u)
-        elif choice == "0":
-            break
-        else:
-            print("Invalid choice. Try again.")
-
 def main():
     um = UserManager()
     user = None
@@ -95,8 +70,6 @@ def main():
             um.logout()
             main()  # restart login
             return
-        elif choice == "7" and user.role == "Admin":
-            handle_admin_user_management(um, user.username)
         elif choice == "0":
             um.logout()
             print("Logged out. Goodbye!")
