@@ -7,19 +7,22 @@ import uuid
 DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
 
 class Task:
-    def __init__(self, title, description="", priority="Medium", user_id=None, task_id=None, status="Pending"):
+    def __init__(self, title, description="", priority="Medium", task_id=None, status="Pending"):
         self.task_id = task_id or str(uuid.uuid4())
         self.title = title
         self.description = description
         self.priority = priority
         self.status = status
-        self.user_id = user_id
 
 class TaskManager:
-    def __init__(self, current_user=None):
+    def __init__(self):
         self.tasks = []
-        self.current_user = current_user
         self.load_tasks()
+
+    def add_task(self, task):
+        self.tasks.append(task)
+        self.save_tasks()
+
 
     def add_task(self, task):
         if self.current_user.role == "User":
