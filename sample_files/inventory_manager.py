@@ -48,7 +48,7 @@ def background_stock_monitor():
             except Exception as e:
                 logger.warning(f"Stock update failed: {e}")
                 time.sleep(3)
-    t = threading.Thread(target=monitor)
+    t = threading.Thread(target=monitor, daemon=True)
     t.start()
 
 def main():
