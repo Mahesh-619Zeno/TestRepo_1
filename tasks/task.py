@@ -16,7 +16,7 @@ class Task:
         self.status = status or "Pending"
 
     def _validate_priority(self, priority):
-        value = priority.capitalize()
+        value = str(priority).capitalize() if priority else "Medium"
         if value not in VALID_PRIORITIES:
             return "Medium"  # safe default
         return value
