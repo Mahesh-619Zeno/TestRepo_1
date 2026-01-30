@@ -56,6 +56,6 @@ class TaskManager:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
                 self.tasks = [Task(**d) for d in data]
-        except (json.JSONDecodeError, TypeError, ValueError):
+        except (json.JSONDecodeError, TypeError, ValueError, AttributeError):
             # Fail safely instead of crashing
             self.tasks = []
