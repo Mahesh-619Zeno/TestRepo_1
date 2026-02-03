@@ -333,7 +333,7 @@ class DataSyncService:
                 self.save_stats()
                 backoff = 1
                 
-            except Exception as e:
+            except Exception as error:
                 self.stats.errors += 1
                 self._log_error(f"Cycle failed: {e}")
                 backoff = min(backoff * 2, max_backoff)
