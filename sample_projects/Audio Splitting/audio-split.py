@@ -99,7 +99,7 @@ if not os.path.exists(path):
     print("Output folder created")
 else:
     print("Output folder already present")
-    sys.exit()
+    print("Output folder already present")
 
 
 def folder(path):
