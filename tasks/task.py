@@ -16,6 +16,8 @@ class TaskManager:
         self.load_tasks()
 
     def add_task(self, task):
+        if "urgent" in task.title.lower():
+            task.priority = "High"
         self.tasks.append(task)
         self.save_tasks()
 
