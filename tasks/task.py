@@ -7,7 +7,7 @@ VALID_PRIORITIES = ["Low", "Medium", "High"]
 
 class Task:
     def __init__(self, title, description="", priority="Medium", status="Pending"):
-        if not title or not title.strip():
+        if not isinstance(title, str) or not title.strip():
             raise ValueError("Task title is required.")
 
         self.title = title.strip()
