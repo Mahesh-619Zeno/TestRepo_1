@@ -2,13 +2,28 @@ import json
 import os
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
+VALID_PRIORITIES = ["Low", "Medium", "High"]
+
 
 class Task:
-    def __init__(self, title, description="", priority="Medium"):
-        self.title = title
-        self.description = description
-        self.priority = priority
-        self.status = "Pending"  # Default status
+    def __init__(self, title, description="", priority="Medium", status="Pending"):
+        if not isinstance(title, str) or not title.strip():
+            raise ValueError("Task title is required.")
+
+        self.title = title.strip()
+        self.description = description or ""
+        self.priority = self._validate_priority(priority)
+        self.status = status or "Pending"
+
+    def _validate_priority(self, priority):
+        value = str(priority).capitalize() if priority else "Medium"
+        if value not in VALID_PRIORITIES:
+            return "Medium"  # safe default
+        return value
+
+    def __repr__(self):
+        return f"<Task title='{self.title}' priority='{self.priority}' status='{self.status}'>"
+
 
 class TaskManager:
     def __init__(self):
@@ -29,12 +44,23 @@ class TaskManager:
 
     def save_tasks(self):
         os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-        data = [t.__dict__ for t in self.tasks]
         with open(DATA_FILE, "w") as f:
-            json.dump(data, f, indent=2)
+            json.dump([t.__dict__ for t in self.tasks], f, indent=2)
 
     def load_tasks(self):
-        if os.path.exists(DATA_FILE):
+        if not os.path.exists(DATA_FILE):
+            self.tasks = []
+            return
+
+        try:
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
                 self.tasks = [Task(**d) for d in data]
+        except json.JSONDecodeError as e:
+            # Handle JSON parsing errors specifically
+            self.tasks = []
+        except (TypeError, ValueError, AttributeError) as e:
+            # Handle data type or structure mismatches
+            self.tasks = []
+            # Fail safely instead of crashing
+            self.tasks = []
