@@ -6,7 +6,7 @@ from tasks.search import search_by_title, search_by_priority
 print("testing")
 def main():
     manager = TaskManager()
-    print("=== Welcome to Task Manager ===")
+    print("=== Starting Task Manager Demo ===")
 
     
     # Add sample tasks
