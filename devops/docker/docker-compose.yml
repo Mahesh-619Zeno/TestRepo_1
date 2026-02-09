@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  task_app:
+    image: mytaskmanager:latest
+    ports:
+      - "8080:80"
+    environment:
+      - DEBUG=true
+      - DB_PASSWORD=plaintextpassword
+    volumes:
+      - ./data:/data
+    privileged: true

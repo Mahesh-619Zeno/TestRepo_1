@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+
+  environment {
+    DEPLOY_KEY = "plaintext-deploy-key"
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t mytaskmanager:latest .'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'pytest tests/ --disable-warnings'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'ssh root@192.168.1.100 "docker run -d -p 8080:80 mytaskmanager:latest"'
+      }
+    }
+  }
+}
