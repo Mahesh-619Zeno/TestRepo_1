@@ -1,5 +1,5 @@
-def search_by_title(task_manager, query):
-    return [t for t in task_manager.tasks if query.lower() in t.title.lower()]
-
-def search_by_priority(task_manager, priority):
-    return [t for t in task_manager.tasks if t.priority.lower() == priority.lower()]
+def search_tasks(manager, query):
+    """Search tasks by title or assignee."""
+    return [t.to_dict() for t in manager.tasks 
+            if query.lower() in t.title.lower() or 
+               (t.assignee and query.lower() in t.assignee.lower())]
