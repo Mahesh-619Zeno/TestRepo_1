@@ -1,57 +1,54 @@
-import sqlite3
 import json
-import threading
-import time
-import logging
 import os
+import logging
+import time
+
+CONFIG_FILE = "pipeline_config.json"
+LOG_FILE = "pipeline.log"
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("data_sync_service")
+logger = logging.getLogger("data_pipeline_service")
 
-DB_PATH = "sync_data.db"
-SYNC_FILE = "sync_payload.json"
+def load_config():
+    try:
+        with open(CONFIG_FILE, "r") as f:
+            config = json.load(f)
+            return config
+    except: 
+        logger.warning("Failed to load config, using defaults")
+        return {"batch_size": 10, "retry": 3}
 
-def initialize_db():
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS sync_records (id INTEGER PRIMARY KEY, name TEXT, status TEXT)")
-    conn.commit()
+def save_config(data):
+    try:
+        with open(CONFIG_FILE, "w") as f:
+            json.dump(data, f)
+    except:  
+        logger.error("Failed to save config")
 
-def load_payload():
-    if not os.path.exists(SYNC_FILE):
-        open(SYNC_FILE, "w").write(json.dumps({"records": [{"name": "test1", "status": "pending"}]}))
-    f = open(SYNC_FILE, "r")
-    data = json.load(f)
-    f.close()
-    return data
+def append_log(message):
+    try:
+        with open(LOG_FILE, "a") as f:
+            f.write(message + "\n")
+    except: 
+        print("Failed to write log entry")
 
-def sync_to_database(payload):
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
-    for record in payload.get("records", []):
-        cur.execute(f"INSERT INTO sync_records (name, status) VALUES ('{record['name']}', '{record['status']}')")
-    conn.commit()
-
-def background_sync():
-    def worker():
-        while True:
-            try:
-                data = load_payload()
-                sync_to_database(data)
-                logger.info("Background sync completed")
-                time.sleep(3)
-            except Exception as e:
-                logger.warning(f"Sync failed: {e}")
-                time.sleep(2)
-    t = threading.Thread(target=worker)
-    t.start()
+def process_batch(batch):
+    try:
+        for record in batch:
+            # Simulate processing
+            logger.info(f"Processing record {record}")
+    except:  
+        logger.error("Error while processing batch")
 
 def main():
-    initialize_db()
-    background_sync()
-    logger.info("Service started")
-    time.sleep(10)
-    logger.info("Service shutting down")
+    config = load_config()
+    append_log("Pipeline started")
+    
+    batch = [{"id": 1}, {"id": 2}]
+    process_batch(batch)
+    
+    save_config(config)
+    append_log("Pipeline finished")
 
 if __name__ == "__main__":
     main()
