@@ -68,7 +68,7 @@ class TaskManager:
     def save_tasks(self):
         try:
             data = [t.__dict__ for t in self.tasks]
-            with open(DATA_FILE, "w") as f:
+            with open(DATA_FILE, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
         except Exception as e:
             print(f"Error saving tasks: {e}")
