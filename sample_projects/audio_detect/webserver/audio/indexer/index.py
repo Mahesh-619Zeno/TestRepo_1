@@ -9,8 +9,7 @@ def milvus_client():
         milvus = Milvus(host=MILVUS_HOST, port=MILVUS_PORT)
         return milvus
     except Exception as e:
-        print("Milvus ERROR:", e)
-        logging.error(e)
+        logging.error("An unexpected error occurred while connecting to Milvus.")
 
 
 def create_table_milvus(client, table_name, dimension):
