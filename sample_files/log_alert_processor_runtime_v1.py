@@ -114,7 +114,7 @@ class LogAlertProcessor:
                 result_map
             )
 
-            time.sleep(self.config["poll_interval_sec"])
+            time.sleep(max(0, self.config["poll_interval_sec"]))
 
 
 def build_response_details(state_map):
