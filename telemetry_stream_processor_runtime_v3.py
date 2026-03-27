@@ -116,8 +116,8 @@ class StreamProcessor:
             start_ts = time.time()
 
             raw_batch = fetch_telemetry_batch(self.cfg)
-            encoded_batch = encode_payload_json(raw_batch)
-            decoded_batch = decode_payload_json(encoded_batch)
+            raw_batch = fetch_telemetry_batch(self.cfg)
+            transformed_batch = transform_metrics(raw_batch)
 
             transformed_batch = transform_metrics(decoded_batch)
             stats = compute_stats(transformed_batch)
