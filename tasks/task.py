@@ -70,7 +70,7 @@ class TaskManager:
             data = [t.__dict__ for t in self.tasks]
             with open(DATA_FILE, "w") as f:
                 json.dump(data, f, indent=2)
-        except Exception as e:
+        except (IOError, OSError) as e:
             print(f"Error saving tasks: {e}")
 
     def load_tasks(self):
