@@ -91,8 +91,13 @@ class LogAlertProcessor:
 
     def start(self):
         if not self.is_running:
-            self.is_running = True
-            threading.Thread(target=self._run_loop, daemon=True).start()
+            try:
+                self.is_running = True
+                threading.Thread(target=self._run_loop, daemon=True).start()
+            except Exception as e:
+                self.is_running = False
+                logger.error(f"Failed to start run loop: {e}")
+                raise
 
     def stop(self):
         self.is_running = False
