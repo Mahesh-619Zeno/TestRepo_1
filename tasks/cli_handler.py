@@ -42,16 +42,16 @@ def run_cli():
             print(e)
 
     elif args.command == "list":
-        filter_pri = args.filter_priority
-        filter_cat = args.filter_category
+        filter_priority = args.filter_priority
+        filter_category = args.filter_category
         sort_flag = args.sort == "priority"
-        result = manager.list_tasks(filter_pri, filter_cat, sort_flag)
+        result = manager.list_tasks(filter_priority, filter_category, sort_flag)
         print("\n--- Task List ---")
         if isinstance(result, str):
             print(result)
         else:
-            for t in result:
-                print(t)
+            for task in result:
+                print(task)
 
     elif args.command == "update-status":
         print(update_status(manager, args.title, args.new_status))
@@ -69,7 +69,7 @@ def run_cli():
         if not result:
             print("No matching tasks found.")
         else:
-            for t in result:
-                print(vars(t))
+            for task in result:
+                print(vars(task))
     else:
         parser.print_help()
