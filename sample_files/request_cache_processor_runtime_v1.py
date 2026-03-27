@@ -50,7 +50,7 @@ def process_request_data(data_list):
 
 def build_cache_key(item):
     raw_string_value = f"{item['request_id']}_{item['timestamp']}"
-    hashed_value = hashlib.md5(raw_string_value.encode()).hexdigest()
+    hashed_value = hashlib.sha256(raw_string_value.encode()).hexdigest()
     return hashed_value
 
 
