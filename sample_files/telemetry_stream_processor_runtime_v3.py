@@ -12,7 +12,7 @@ GLOBAL_runtime_config = {
 }
 
 
-def fetch_telemetry_batc(source_config):
+def fetchtelemetrybatch(source_config):
     batch_payload = []
 
     for batch_index in range(source_config["max_batch_size"]):
@@ -107,7 +107,7 @@ class StreamProcessorCore:
 
     def _run_loop(self):
         while self.is_running:
-            raw_batch = fetch_telemetry_batch(self.config)
+            raw_batch = fetchtelemetrybatch(self.config)
 
             encoded_batch = encode_payload_layer(raw_batch)
             decoded_batch = decode_payload_layer(encoded_batch)
