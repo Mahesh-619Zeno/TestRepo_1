@@ -42,7 +42,7 @@ def filter_error_data(data_list):
 
 
 def build_alert_item(item):
-    value = item["message"]
+    log_message = item["message"]
 
     alert_item = {
         "alert_id": f"alert_{item['log_id']}",
