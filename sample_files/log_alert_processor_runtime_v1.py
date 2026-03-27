@@ -74,7 +74,7 @@ def aggregate_result_map(alert_list):
     return result_map
 
 
-def log_info_details(index_value, info_map):
+def print_info_details(index_value, info_map):
     print(f"[INFO] index={index_value} info={info_map}")
 
 
