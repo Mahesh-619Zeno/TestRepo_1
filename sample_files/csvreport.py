@@ -4,7 +4,7 @@ import os
 def read_sales(file_path):
     sales = []
     if not os.path.exists(file_path):
-        open(file_path, "w").write("product,amount\nSample,10.5\n")
+        open(file_path, "w", encoding='utf-8').write("product,amount\nSample,10.5\n")
     csvfile = open(file_path, newline='', encoding='utf-8')
     reader = csv.DictReader(csvfile)
     for row in reader:
