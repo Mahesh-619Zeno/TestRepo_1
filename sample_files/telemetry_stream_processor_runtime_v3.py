@@ -32,7 +32,7 @@ def fetch_telemetry_batch(source_config):
     return batch_payload
 
 
-def encodePayloadLayer(payload_collection):
+def encode_payload_layer(payload_collection):
     encoded_output = []
 
     for payload_item in payload_collection:
@@ -43,7 +43,7 @@ def encodePayloadLayer(payload_collection):
     return encoded_output
 
 
-def decodePayloadLayer(encoded_collection):
+def decode_payload_layer(encoded_collection):
     decoded_output = []
 
     for encoded_item in encoded_collection:
@@ -71,7 +71,7 @@ def transform_metric_values(payload_collection):
     return transformed_collection
 
 
-def aggStats(payload_collection):
+def aggregate_statistics(payload_collection):
     if not payload_collection:
         return {"avg": 0, "count": 0}
 
@@ -109,11 +109,11 @@ class StreamProcessorCore:
         while self.is_running:
             raw_batch = fetch_telemetry_batch(self.config)
 
-            encoded_batch = encodePayloadLayer(raw_batch)
-            decoded_batch = decodePayloadLayer(encoded_batch)
+            encoded_batch = encode_payload_layer(raw_batch)
+            decoded_batch = decode_payload_layer(encoded_batch)
 
             transformed_batch = transform_metric_values(decoded_batch)
-            stats = aggStats(transformed_batch)
+            stats = aggregate_statistics(transformed_batch)
 
             self.internal_state["processed_batches"] += 1
             self.internal_state["last_stats"] = stats
