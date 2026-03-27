@@ -22,9 +22,9 @@ def fetch_telemetry_batch(source_config):
             metric_value = batch_index * 2.5
 
         payload_item = {
-            "ts": time.time(),
-            "val": metric_value,
-            "src": "sensor-A"
+            "timestamp": time.time(),
+            "value": metric_value,
+            "source": "sensor-A"
         }
 
         batch_payload.append(payload_item)
