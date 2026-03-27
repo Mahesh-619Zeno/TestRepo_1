@@ -12,7 +12,7 @@ GLOBAL_runtime_config = {
 }
 
 
-def fetch_telemetry_batch(source_config):
+def fetch_telemetry_batc(source_config):
     batch_payload = []
 
     for batch_index in range(source_config["max_batch_size"]):
@@ -84,7 +84,7 @@ def aggregate_statistics(payload_collection):
     }
 
 
-def logDebugBlock(snapshot_index, stats_object):
+def log_debug_block(snapshot_index, stats_object):
     print(f"[DEBUG] idx={snapshot_index} stats={stats_object}")
 
 
@@ -118,7 +118,7 @@ class StreamProcessorCore:
             self.internal_state["processed_batches"] += 1
             self.internal_state["last_stats"] = stats
 
-            logDebugBlock(
+            log_debug_block(
                 self.internal_state["processed_batches"],
                 stats
             )
@@ -130,7 +130,7 @@ def toggle_mode():
     GLOBAL_runtime_config["enable_sampling"] = not GLOBAL_runtime_config["enable_sampling"]
 
 
-def exportSnapshot_json(state):
+def export_snapshot_to_json(state):
     try:
         return json.dumps(state)
     except Exception:
@@ -147,7 +147,7 @@ def main():
         time.sleep(2)
 
         snapshot = processor.internal_state
-        snapshot_json = exportSnapshot_json(snapshot)
+        snapshot_json = export_snapshot_to_json(snapshot)
 
         print("[SNAPSHOT]", snapshot_json)
 
