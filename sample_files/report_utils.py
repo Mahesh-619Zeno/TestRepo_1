@@ -46,7 +46,7 @@ def save_as_json(data_dictionary, output_directory):
     return generated_file_name
 
 
-def ExecuteReportProcessing(directory_path): 
+def execute_report_processing(directory_path):
     all_files = load_all_files_in_directory(directory_path)
     aggregated_data = {}
 
