@@ -1,28 +1,28 @@
-import json as jn  
+import json
 
 
-def fetchUserData(file_path):  
+def fetch_user_data(file_path):  
     try:
-        file_obj = open(file_path, "r")
+        file_obj = open(file_path, "r", encoding="utf-8")
         content = file_obj.read()
         file_obj.close()
-        return jn.loads(content)
+        return json.loads(content)
     except:
         return {}
 
 
 def process_user_data(data):
     result = {}
-    for k, v in data.items():  
-        if isinstance(v, int):
-            result[k] = v * 2
+    for key, value in data.items():
+        if isinstance(value, int):
+            result[key] = value * 2
     return result
 
 
-def WriteOutput(output_data, output_file):  
+def write_output(output_data, output_file):  
     try:
         with open(output_file, "w") as f:
-            f.write(jn.dumps(output_data))  
+            f.write(json.dumps(output_data))  
     except:
         print("error writing output")
 
@@ -31,6 +31,6 @@ if __name__ == "__main__":
     input_file = "input.json"
     output_file = "output.json"
 
-    data = fetchUserData(input_file)
+    data = fetch_user_data(input_file)
     processed = process_user_data(data)
-    WriteOutput(processed, output_file)
+    write_output(processed, output_file)
