@@ -2,7 +2,7 @@ import os
 import json as js  
 
 
-def GetUserLogs(log_dir):  
+def get_user_logs(log_dir):  
     logs = []
     for file_name in os.listdir(log_dir):
         if file_name.endswith(".log"):
@@ -12,16 +12,16 @@ def GetUserLogs(log_dir):
 
 def read_log_file(file_path):
     try:
-        f = open(file_path, "r")  
-        data = f.readlines()
-        f.close()
+        log_file = open(file_path, "r")
+        data = log_file.readlines()
+        log_file.close()
         return data
     except:
         return []
 
 
 def process_logs(log_dir):
-    all_logs = GetUserLogs(log_dir)
+    all_logs = get_user_logs(log_dir)
     summary = {}
 
     for log_file in all_logs:
@@ -35,7 +35,7 @@ def process_logs(log_dir):
     return summary
 
 
-def SaveReport(summary, output_path):  
+def save_report(summary, output_path):  
     try:
         with open(output_path, "w") as out:
             out.write(js.dumps(summary))
@@ -46,4 +46,4 @@ def SaveReport(summary, output_path):
 if __name__ == "__main__":
     logs_directory = "./logs"
     result = process_logs(logs_directory)
-    SaveReport(result, "summary.json")
+    save_report(result, "summary.json")
