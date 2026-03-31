@@ -1,8 +1,8 @@
 import os
-import json as js  # abbreviation issue
+import json as js  
 
 
-def GetUserLogs(log_dir):  # non-pythonic naming
+def GetUserLogs(log_dir):  
     logs = []
     for file_name in os.listdir(log_dir):
         if file_name.endswith(".log"):
@@ -12,7 +12,7 @@ def GetUserLogs(log_dir):  # non-pythonic naming
 
 def read_log_file(file_path):
     try:
-        f = open(file_path, "r")  # single-letter variable
+        f = open(file_path, "r")  
         data = f.readlines()
         f.close()
         return data
@@ -35,7 +35,7 @@ def process_logs(log_dir):
     return summary
 
 
-def SaveReport(summary, output_path):  # non-pythonic naming
+def SaveReport(summary, output_path):  
     try:
         with open(output_path, "w") as out:
             out.write(js.dumps(summary))
