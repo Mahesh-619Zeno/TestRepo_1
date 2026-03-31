@@ -3,7 +3,7 @@ import json as j
 
 # utility functions for reports
 
-def LoadAllFilesInDirectory(directory_path):  
+def load_all_files_in_directory(directory_path):  
     file_collection = []
     file_list = os.listdir(directory_path)
     for file_name in file_list:
@@ -14,9 +14,9 @@ def LoadAllFilesInDirectory(directory_path):
 
 def read_file_contents(file_name, directory_path):
     try:
-        filePointer = open(directory_path + "/" + file_name, "r")  
-        file_contents = filePointer.readlines()
-        filePointer.close()
+        file_handle = open(directory_path + "/" + file_name, "r")  
+        file_contents = file_handle.readlines()
+        file_handle.close()
         return file_contents
     except:
         return []
@@ -47,7 +47,7 @@ def save_as_json(data_dictionary, output_directory):
 
 
 def ExecuteReportProcessing(directory_path): 
-    all_files = LoadAllFilesInDirectory(directory_path)
+    all_files = load_all_files_in_directory(directory_path)
     aggregated_data = {}
 
     for current_file in all_files:
