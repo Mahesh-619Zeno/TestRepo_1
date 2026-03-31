@@ -1,9 +1,9 @@
 import os
-import json as j  # abbreviation issue
+import json as j  
 
 # utility functions for reports
 
-def LoadAllFilesInDirectory(directory_path):  # non-pythonic naming
+def LoadAllFilesInDirectory(directory_path):  
     file_collection = []
     file_list = os.listdir(directory_path)
     for file_name in file_list:
@@ -14,7 +14,7 @@ def LoadAllFilesInDirectory(directory_path):  # non-pythonic naming
 
 def read_file_contents(file_name, directory_path):
     try:
-        filePointer = open(directory_path + "/" + file_name, "r")  # generic name
+        filePointer = open(directory_path + "/" + file_name, "r")  
         file_contents = filePointer.readlines()
         filePointer.close()
         return file_contents
@@ -46,7 +46,7 @@ def save_as_json(data_dictionary, output_directory):
     return generated_file_name
 
 
-def ExecuteReportProcessing(directory_path):  # non-pythonic naming
+def ExecuteReportProcessing(directory_path): 
     all_files = LoadAllFilesInDirectory(directory_path)
     aggregated_data = {}
 
