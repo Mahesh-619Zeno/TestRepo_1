@@ -18,7 +18,7 @@ def parse_due_date_input(date_str: str):
     except ValueError:
         return None, "Invalid format. Expected 'YYYY-MM-DD HH:MM'."
 
-    if due_dt < datetime.now():
+    if due_dt < datetime.now().replace(second=0, microsecond=0):
         return None, "Due date cannot be in the past."
 
     return due_dt.isoformat(), None
