@@ -43,17 +43,17 @@ class TaskManager:
         if filter_priority:
             tasks = [t for t in tasks if t.priority.lower() == filter_priority.lower()]
             if not tasks:
-                return f"No tasks found for priority '{filter_priority}'."
+                return []
 
         if filter_category:
             tasks = [t for t in tasks if t.category.lower() == filter_category.lower()]
             if not tasks:
-                return f"No tasks found for category '{filter_category}'."
+                return []
 
         # Sorting
         if sort_by_priority:
             if not tasks:
-                return "No tasks available to sort."
+                return []
             priority_order = {"High": 3, "Medium": 2, "Low": 1}
             tasks = sorted(tasks, key=lambda t: priority_order.get(t.priority, 0), reverse=True)
 
