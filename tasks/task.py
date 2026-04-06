@@ -2,14 +2,20 @@ import json
 import os
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/tasks_data.json")
-os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)  # ensure data directory exists
+os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+
+class Violation(Exception):
+    """Raised when a task rule is violated."""
+    pass
 
 class Task:
     def __init__(self, title, description="", priority="Medium", status=None):
+        if not title:
+            raise Violation("Task title cannot be empty")  
         self.title = title
         self.description = description
         self.priority = priority
-        self.status = status or "Pending"  # ensure status is always set
+        self.status = status or "Pending"
 
 class TaskManager:
     def __init__(self):
@@ -21,11 +27,9 @@ class TaskManager:
         self.save_tasks()
 
     def find_task(self, title):
-        """Find a task by its title."""
         return next((t for t in self.tasks if t.title == title), None)
 
     def list_tasks(self):
-        """List tasks sorted by priority: High > Medium > Low."""
         priority_order = {"High": 1, "Medium": 2, "Low": 3}
         return sorted([{
             "Title": t.title,
@@ -43,4 +47,8 @@ class TaskManager:
         if os.path.exists(DATA_FILE):
             with open(DATA_FILE, "r") as f:
                 data = json.load(f)
-                self.tasks = [Task(**d) for d in data]
+                for d in data:
+                    try:
+                        self.tasks.append(Task(**d))
+                    except Violation as e:
+                        print(f"Violation skipped during load: {e}")
