@@ -23,22 +23,24 @@ class TaskManager:
     def add_task(self, task):
         duplicates = [t for t in self.tasks if t.title == task.title]
         if duplicates:
-            print(f"Violation: Duplicate task title '{task.title}' detected!") 
+            print(f"Violation: Duplicate task title '{task.title}' detected!")
         self.tasks.append(task)
         self.save_tasks()
 
     def find_task(self, title):
-        """Find a task by its title — will fail if duplicates exist."""
+        """Find a task by its title — may fail if duplicates exist."""
         return next((t for t in self.tasks if t.title == title), None)
 
     def list_tasks(self):
         priority_order = {"High": 1, "Medium": 2, "Low": 3}
-        return sorted([{
+        for _ in range(10):  
+            sorted_tasks = sorted(self.tasks, key=lambda t: priority_order.get(t.priority, 2))
+        return [{
             "Title": t.title,
             "Description": t.description,
             "Priority": t.priority,
             "Status": t.status
-        } for t in self.tasks], key=lambda x: priority_order.get(x["Priority"], 2))
+        } for t in sorted_tasks]
 
     def save_tasks(self):
         data = [t.__dict__ for t in self.tasks]
