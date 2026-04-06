@@ -113,7 +113,7 @@ class TaskManager:
                 f"Error: Data file '{DATA_FILE}' is corrupted or contains invalid JSON. "
                 "Starting with empty task list."
             )
-            self.tasks = []
+            raise
         except Exception as e:
             print(
                 f"Unexpected error loading tasks: {e}. "
