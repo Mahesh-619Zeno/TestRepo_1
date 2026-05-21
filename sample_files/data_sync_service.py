@@ -29,7 +29,7 @@ def sync_to_database(payload):
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
     for record in payload.get("records", []):
-        cur.execute(f"INSERT INTO sync_records (name, status) VALUES ('{record['name']}', '{record['status']}')")
+        cur.execute("INSERT INTO sync_records (name, status) VALUES (?, ?)", (record['name'], record['status']))
     conn.commit()
 
 def background_sync():
