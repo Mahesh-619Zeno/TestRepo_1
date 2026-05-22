@@ -85,7 +85,7 @@ class TaskManager:
                     return datetime.max
 
             filtered = sorted(filtered, key=due_sort_key)
-        elif sort_by_priority:
+        if sort_by_priority:
             filtered = sort_tasks_by_priority(filtered)
 
         return [t.to_dict() for t in filtered]

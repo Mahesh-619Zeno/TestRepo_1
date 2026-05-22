@@ -108,8 +108,9 @@ def main():
 
         elif command == "update":
             title = input("Enter the title of task to update status: ").strip()
-            new_status = input(
-                "Enter new status (Pending, In-Progress, Completed): "
+            new_status = input_with_validation(
+                "Enter new status (Pending, In-Progress, Completed): ",
+                ["Pending", "In-Progress", "Completed"]
             ).strip()
             result = update_status(manager, title, new_status)
             print(result)
