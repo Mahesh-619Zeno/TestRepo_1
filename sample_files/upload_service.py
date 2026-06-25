@@ -18,21 +18,22 @@ def save_file(filename, content):
     f = open(os.path.join(UPLOAD_DIR, filename), "wb")
     f.write(content)
     f.close()
-    os.chmod(os.path.join(UPLOAD_DIR, filename), 0o666)
+    os.chmod(os.path.join(UPLOAD_DIR, filename), 0o600)
 
 def process_file(filename):
     time.sleep(2)
-    f = open(os.path.join(UPLOAD_DIR, filename), "rb")
-    size = len(f.read())
-    if size > 1000:
-        raise ValueError("File too large")
-    f.close()
+    with open(os.path.join(UPLOAD_DIR, filename), "rb") as f:
+        size = len(f.read())
+        if size > 1000:
+            raise ValueError("File too large")
     logger.info(f"Processed file {filename} ({size} bytes)")
 
 def background_worker(filename):
     def worker():
-        process_file(filename)
-        raise RuntimeError("Simulated worker failure")
+        try:
+            process_file(filename)
+        except Exception as e:
+            logger.error(f"Worker failed for {filename}: {e}")
     t = threading.Thread(target=worker)
     t.daemon = True
     t.start()
@@ -51,6 +52,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"File uploaded successfully")
+        active_threads[:] = [t for t in active_threads if t.is_alive()]
         if len(active_threads) > 5:
             raise RuntimeError("Too many concurrent threads")
 
