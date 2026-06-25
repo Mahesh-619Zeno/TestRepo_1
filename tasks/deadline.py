@@ -18,7 +18,7 @@ def parse_due_date_input(date_str: str):
     except ValueError:
         return None, "Invalid format. Expected 'YYYY-MM-DD HH:MM'."
 
-    if due_dt < datetime.now():
+    if due_dt.replace(second=59, microsecond=999999) < datetime.now():
         return None, "Due date cannot be in the past."
 
     return due_dt.isoformat(), None
@@ -34,7 +34,7 @@ def set_task_due_date(task_manager, title: str, due_date_input: str):
     if not task:
         return f"Task '{title}' not found."
 
-    if not due_date_input.strip():
+    if not due_date_input or not due_date_input.strip():
         task.due_date = None
         task_manager.save_tasks()
         return f"Due date removed from task '{title}'."

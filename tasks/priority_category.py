@@ -25,8 +25,8 @@ def sort_tasks_by_priority(tasks):
 
 
 def filter_tasks_by_priority(tasks, priority):
-    return [t for t in tasks if getattr(t, 'priority', '').lower() == priority.lower()]
+    return [t for t in tasks if (getattr(t, 'priority', '') or '').lower() == priority.lower()]
 
 
 def filter_tasks_by_category(tasks, category):
-    return [t for t in tasks if getattr(t, 'category', '').lower() == category.lower()]
+    return [t for t in tasks if (getattr(t, 'category', '') or '').lower() == category.lower()]

@@ -12,7 +12,9 @@ def input_with_validation(prompt, valid_options=None, allow_empty=False):
         val = input(prompt).strip()
         if not val and allow_empty:
             return val
-        if valid_options and val.lower() not in [v.lower() for v in valid_options]:
+        if not val and not allow_empty:
+            print("Input cannot be empty. Please try again.")
+        elif valid_options and val.lower() not in [v.lower() for v in valid_options]:
             print(f"Invalid option. Valid options: {', '.join(valid_options)}")
         else:
             return val
@@ -34,7 +36,7 @@ def main():
         command = input("Enter command: ").strip().lower()
 
         if command == "add":
-            title = input("Enter task title: ").strip()
+            title = input_with_validation("Enter task title: ", allow_empty=False)
             description = input("Enter task description: ").strip()
             try:
                 priority_input = input(
