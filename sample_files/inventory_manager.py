@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("inventory_manager")
 
-DB_FILE = "inventory.db"
+DB_FILE = os.getenv("INVENTORY_DB_PATH", "inventory.db")
 DATA_FILE = "items.json"
 
 def init_db():
