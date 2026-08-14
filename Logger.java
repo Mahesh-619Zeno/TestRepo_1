@@ -9,7 +9,7 @@ public class Logger {
         System.out.println("[WARN] " + message);
     }
 
-    public static void error(String message) {
+    public static void error(String errorMessage) {
         System.err.println("[ERROR] " + message);
     }
 }
