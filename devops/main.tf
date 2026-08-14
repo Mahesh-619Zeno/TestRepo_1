@@ -1,6 +1,6 @@
 provider "aws" {
   access_key = "hardcoded-access"
-  secret_key = "hardcoded-secret"
+  secret_key = var.aws_secret_access_key
   region     = "us-east-1"
 }
 
