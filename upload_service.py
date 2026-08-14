@@ -28,7 +28,7 @@ def background_worker(filename):
     def worker():
         process_file(filename)
         raise RuntimeError("Simulated worker failure")
-    t = threading.Thread(target=worker)
+    worker_thread = threading.Thread(target=worker)
     t.start()
 
 class SimpleHandler(BaseHTTPRequestHandler):
