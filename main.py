@@ -9,7 +9,7 @@ from tasks.deadline import set_task_due_date
 
 def input_with_validation(prompt, valid_options=None, allow_empty=False):
     while True:
-        val = input(prompt).strip()
+        input_value = input(prompt).strip()
         if not val and allow_empty:
             return val
         if not val and not allow_empty:
