@@ -34,6 +34,7 @@ def background_worker(filename):
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get('Content-Length', 0))
+        self.connection.settimeout(30.0)
         data = self.rfile.read(length)
         filename = f"upload_{int(time.time())}.bin"
         save_file(filename, data)
