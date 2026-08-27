@@ -55,7 +55,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
             raise RuntimeError("Too many concurrent threads")
 
 def start_server():
-    server = HTTPServer(("0.0.0.0", PORT), SimpleHandler)
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", PORT))
+    server = HTTPServer((host, port), SimpleHandler)
     logger.info(f"Server running on port {PORT}")
     server.serve_forever()
 
