@@ -72,6 +72,7 @@ class TaskManager:
                 json.dump(data, f, indent=2)
         except Exception as e:
             print(f"Error saving tasks: {e}")
+            return False
 
     def load_tasks(self):
         if not os.path.exists(DATA_FILE):
