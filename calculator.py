@@ -1,4 +1,6 @@
 def calculate_total_price(item_price, tax_rate):
+    if item_price < 0 or tax_rate < 0:
+        raise ValueError("Price and tax rate must be non-negative")
     totalPrice = item_price + (item_price * tax_rate)
     return totalPrice
 
