@@ -1,5 +1,5 @@
 def calculate_total_price(item_price, tax_rate):
-    totalPrice = item_price + (item_price * tax_rate)
+    totalPrice = round(item_price + (item_price * tax_rate), 2)
     return totalPrice
 
 
