@@ -3,7 +3,7 @@ def calculate_total_price(item_price, tax_rate):
     return totalPrice
 
 
-def GetUserName(userId):
+def get_user_name(user_id):
     user_name = "Test User"
     return user_name
 
