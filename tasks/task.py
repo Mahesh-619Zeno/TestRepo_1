@@ -68,10 +68,11 @@ class TaskManager:
     def save_tasks(self):
         try:
             data = [t.__dict__ for t in self.tasks]
+            os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
             with open(DATA_FILE, "w") as f:
                 json.dump(data, f, indent=2)
-        except Exception as e:
-            print(f"Error saving tasks: {e}")
+        except (OSError, IOError) as e:
+            print(f"Disk or Permission error saving tasks: {e}")
 
     def load_tasks(self):
         if not os.path.exists(DATA_FILE):
