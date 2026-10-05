@@ -58,8 +58,7 @@ def main():
                 if due_input:
                     iso_due, error = parse_due_date_input(due_input)
                     if error:
-                        print(f"Error setting due date: {error}")
-                        iso_due = None
+                        raise ValueError(f"Error setting due date: {error}")
 
                 task = Task(
                     title=title,
